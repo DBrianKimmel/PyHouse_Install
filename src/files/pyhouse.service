@@ -1,0 +1,20 @@
+# This is to start PyHouse upon the system booting.
+
+[Unit]
+Description=PyHouse boot script
+Documentation=http://pyhouse.org
+ConditionPathExists=/etc/pyhouse
+
+[Service]
+#Type=oneshot
+Type=forking
+Restart=no
+TimeoutSec=0
+#IgnoreSIGPIPE=no
+ExecStart=/etc/init.d/raspi-config start
+ExecStop=/etc/init.d/raspi-config stop
+
+[Install]
+WantedBy=multi-user.target
+
+### END DBK
