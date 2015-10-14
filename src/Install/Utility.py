@@ -9,5 +9,19 @@
 
 """
 
+# Import system type stuff
+import os
+
+
+class Directories(object):
+    """
+    """
+
+    def is_dir(self, p_path):
+        return os.path.isdir(p_path)
+
+    def MakeDir(self, p_dir_name):
+        pass
+
 
 # ## END DBK
