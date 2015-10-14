@@ -17,7 +17,9 @@ import shutil
 # Import PyHouseInstall files and modules.
 
 SYSTEMD_DIR = '/etc/systemd/system/'
+TTY1_DIR = '/etc/systemd/system/getty@tty1.service.d/'
 TTY1_FILE = '/etc/systemd/system/getty@tty1.service.d/autologin.conf'
+SRC_FILE = '/home/pyhouse/workspace/PyHouse_Install/src/files/autologin.conf'
 
 
 """
@@ -46,9 +48,10 @@ class AutoStartOnBoot(object):
     def install_autologin(self):
         """
         """
-        os.makedirs('/etc/systemd/system/getty@tty1.service.d')
+        if not os.path.isdir(TTY1_DIR):
+            os.makedirs(TTY1_DIR)
         if not os.path.isfile(TTY1_FILE):
-            pass
+            shutil.copy(SRC_FILE, TTY1_DIR)
 
 
 if __name__ == "__main__":
