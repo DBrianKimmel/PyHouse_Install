@@ -22,15 +22,12 @@ TTY1_FILE = '/etc/systemd/system/getty@tty1.service.d/autologin.conf'
 SRC_FILE = '/home/pyhouse/workspace/PyHouse_Install/src/files/autologin.conf'
 
 
-"""
-    mkdir -p /etc/systemd/system/getty@tty1.service.d/
-
-    cp autologin.conf /etc/systemd/system/getty@tty1.service.d/autologin.conf
-"""
-
 class AutoStartOnBoot(object):
     """
     This will set up tye Raspi to auto login and start PyHouse on boot.
+
+    mkdir -p /etc/systemd/system/getty@tty1.service.d/
+    cp autologin.conf /etc/systemd/system/getty@tty1.service.d/autologin.conf
     """
 
     def detect_systemd(self):
@@ -50,8 +47,8 @@ class AutoStartOnBoot(object):
         """
         if not os.path.isdir(TTY1_DIR):
             os.makedirs(TTY1_DIR)
-        if not os.path.isfile(TTY1_FILE):
-            shutil.copy(SRC_FILE, TTY1_DIR)
+        # if not os.path.isfile(TTY1_FILE):
+        shutil.copy(SRC_FILE, TTY1_DIR)  # Overwrite
 
 
 if __name__ == "__main__":
