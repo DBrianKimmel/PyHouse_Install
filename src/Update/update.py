@@ -31,8 +31,11 @@ class Base(object):
         for l_entry in os.listdir(INSTALL_DIR):
             l_file = os.path.join(INSTALL_DIR, l_entry)
             shutil.copy(l_file, BIN_DIR)
-            os.chmod(l_file, 755)
-            os.chown(l_file, pwd.getpwnam.pw_uid, pwd.getpwnam.pw_gid)
+            try:
+                os.chmod(l_file, 755)
+                os.chown(l_file, pwd.getpwnam.pw_uid, pwd.getpwnam.pw_gid)
+            except Exception:
+                pass
         # for entry in os.scandir(INSTALL_DIR):  # this requires Python 3.5
         #    if not entry.name.startswith('.') and entry.is_file():
         #        print(entry.name)
