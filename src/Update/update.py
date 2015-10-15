@@ -13,6 +13,7 @@
 import os
 import pwd
 import shutil
+import stat
 
 # Import PyHouseInstall files and modules.
 
@@ -32,7 +33,7 @@ class Base(object):
             l_file = os.path.join(INSTALL_DIR, l_entry)
             shutil.copy(l_file, BIN_DIR)
             try:
-                os.chmod(l_file, 755)
+                os.chmod(l_file, stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR | stat.S_IRGRP | stat.S_IXGRP | stat.S_IROTH | stat.S_IXOTH)
                 os.chown(l_file, pwd.getpwnam.pw_uid, pwd.getpwnam.pw_gid)
             except Exception:
                 pass
