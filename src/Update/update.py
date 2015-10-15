@@ -31,10 +31,11 @@ class Base(object):
             os.makedirs(BIN_DIR)
         for l_entry in os.listdir(INSTALL_DIR):
             l_file = os.path.join(INSTALL_DIR, l_entry)
+            l_target = os.path.join(BIN_DIR, l_entry)
             shutil.copy(l_file, BIN_DIR)
             try:
-                os.chmod(l_file, stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR | stat.S_IRGRP | stat.S_IXGRP | stat.S_IROTH | stat.S_IXOTH)
-                os.chown(l_file, pwd.getpwnam.pw_uid, pwd.getpwnam.pw_gid)
+                os.chmod(l_target, stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR | stat.S_IRGRP | stat.S_IXGRP | stat.S_IROTH | stat.S_IXOTH)
+                os.chown(l_target, pwd.getpwnam.pw_uid, pwd.getpwnam.pw_gid)
             except Exception:
                 pass
         # for entry in os.scandir(INSTALL_DIR):  # this requires Python 3.5
