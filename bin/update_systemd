@@ -2,4 +2,8 @@
 
 echo "Updating systemd now..."
 
+sudo python3 /home/pyhouse/workspace/PyHouse_Install/Install/systemd.py
+
+echo "Done updating systemd."
+
 ### END DBK

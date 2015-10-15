@@ -44,6 +44,9 @@ class AutoStartOnBoot(object):
 
     def install_autologin(self):
         """
+        systemctl disable getty@tty1
+        systemctl enable autologin@tty1
+        systemctl start autologin@tty1
         """
         if not os.path.isdir(TTY1_DIR):
             os.makedirs(TTY1_DIR)
@@ -52,7 +55,7 @@ class AutoStartOnBoot(object):
 
 
 if __name__ == "__main__":
-    print('Running...')
+    print('Running systemd.py ...')
     l_boot = AutoStartOnBoot()
     l_boot.detect_systemd()
 
