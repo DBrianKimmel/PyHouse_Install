@@ -2,4 +2,11 @@
 
 # This updates the PyHouse_Install package
 
+WORK=/home/pyhouse/workspace/PyHouse_Install
+echo "Updating PyHouse_Install..."
+cd ${WORK}
+git pull
+sudo python3 ${WORK}/src/Update/update.py
+echo "Finished updating PyHouse_Install"
+
 ### END DBK

@@ -27,10 +27,13 @@ class Base(object):
     def make_bin_dir(self):
         if not os.path.isdir(BIN_DIR):
             os.makedirs(BIN_DIR)
-        for entry in os.scandir(INSTALL_DIR):
-            if not entry.name.startswith('.') and entry.is_file():
-                print(entry.name)
-                shutil.copy(entry.name, BIN_DIR)  # Overwrite
+        for l_entry in os.listdir(INSTALL_DIR):
+            l_file = os.path.join(INSTALL_DIR, l_entry)
+            shutil.copy(l_file, BIN_DIR)
+        # for entry in os.scandir(INSTALL_DIR):  # this requires Python 3.5
+        #    if not entry.name.startswith('.') and entry.is_file():
+        #        print(entry.name)
+        #        shutil.copy(entry.name, BIN_DIR)  # Overwrite
 
 
 if __name__ == "__main__":
