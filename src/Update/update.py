@@ -13,7 +13,6 @@
 import os
 import pwd
 import shutil
-from test.test_pwd import PwdTest
 
 # Import PyHouseInstall files and modules.
 
