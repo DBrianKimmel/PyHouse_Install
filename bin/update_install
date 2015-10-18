@@ -1,11 +1,18 @@
 #!/bin/bash
-
-# This updates the PyHouse_Install package
+# @name:      PyHouse_Install/bin/update_install
+# @author:    D. Brian Kimmel
+# @contact:   D.BrianKimmel@gmail.com
+# @copyright: (c) 2015-2015 by D. Brian Kimmel
+# @license:   MIT License
+# @note:      Created on Oct 15, 2015
+# @Summary:   This updates the PyHouse_Install package
 
 WORK=/home/pyhouse/workspace/PyHouse_Install
+
 echo "Updating PyHouse_Install..."
 cd ${WORK}
 git pull
+git checkout
 sudo python3 ${WORK}/src/Update/update.py
 echo "Finished updating PyHouse_Install"
 
