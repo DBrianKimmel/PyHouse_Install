@@ -27,17 +27,19 @@ class Base(object):
     """
 
     def make_bin_dir(self):
+        l_user = pwd.getpwnam('pyhouse')
         if not os.path.isdir(BIN_DIR):
             os.makedirs(BIN_DIR)
+            os.chown(BIN_DIR, l_user.pw_uid, l_user.pw_gid)
         for l_entry in os.listdir(INSTALL_DIR):
             l_file = os.path.join(INSTALL_DIR, l_entry)
             l_target = os.path.join(BIN_DIR, l_entry)
             shutil.copy(l_file, BIN_DIR)
             try:
                 os.chmod(l_target, stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR | stat.S_IRGRP | stat.S_IXGRP | stat.S_IROTH | stat.S_IXOTH)
-                os.chown(l_target, pwd.getpwnam.pw_uid, pwd.getpwnam.pw_gid)
+                os.chown(l_target, l_user.pw_uid, l_user.pw_gid)
             except Exception as e_err:
-                print('Erro in changing {} - {}'.format(l_target, e_err))
+                print('Error in changing {} - {}'.format(l_target, e_err))
         # for entry in os.scandir(INSTALL_DIR):  # this requires Python 3.5
         #    if not entry.name.startswith('.') and entry.is_file():
         #        print(entry.name)
