@@ -36,8 +36,8 @@ class Base(object):
             try:
                 os.chmod(l_target, stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR | stat.S_IRGRP | stat.S_IXGRP | stat.S_IROTH | stat.S_IXOTH)
                 os.chown(l_target, pwd.getpwnam.pw_uid, pwd.getpwnam.pw_gid)
-            except Exception:
-                pass
+            except Exception as e_err:
+                print('Erro in changing {} - {}'.format(l_target, e_err))
         # for entry in os.scandir(INSTALL_DIR):  # this requires Python 3.5
         #    if not entry.name.startswith('.') and entry.is_file():
         #        print(entry.name)
