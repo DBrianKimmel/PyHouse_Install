@@ -47,8 +47,9 @@ class Base(object):
 
 
 if __name__ == "__main__":
-    print('Running systemd.py ...')
+    print('Running Update/update.py ...')
     l_base = Base()
     l_base.make_bin_dir()
+    print('Finished update.py')
 
 # ## END DBK

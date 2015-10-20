@@ -17,9 +17,8 @@
 #
 
 
-WORK=/home/pyhouse/workspace/PyHouse_Install
-
 echo "Updating PyHouse_Install..."
+WORK='/home/pyhouse/workspace/PyHouse_Install'
 cd ${WORK}
 git pull
 git checkout
