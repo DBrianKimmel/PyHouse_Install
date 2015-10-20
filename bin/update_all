@@ -16,18 +16,22 @@
 #
 
 
-echo "Updating all PyHouse repositoris"
+echo "Updating all PyHouse repositories"
+
+echo "  Updating PyHouse repository"
 WORK='/home/pyhouse/workspace/'
 cd ${WORK}PyHouse
 git pull
 git checkout
-sudo python3 ${WORK}PyHouse_Install/src/Update/update.py
+sudo python3 ${WORK}PyHouse_Install/src/Update/update_pyhouse.py
 
+echo "  Updating PyHouse_Install repository"
 cd ${WORK}PyHouse_Install
 git pull
 git checkout
-sudo python3 ${WORK}PyHouse_Install/src/Update/update.py
+sudo python3 ${WORK}PyHouse_Install/src/Update/update_install.py
 
-echo "Finished updating all PyHouse... repositories\n"
+echo "Finished updating all PyHouse... repositories"
+echo " "
 
 ### END DBK
