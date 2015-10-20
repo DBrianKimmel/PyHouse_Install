@@ -25,7 +25,6 @@ import os
 import pwd
 import subprocess
 import sys
-from test.test_pwd import PwdTest
 
 
 class Jessie(object):

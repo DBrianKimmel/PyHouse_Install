@@ -49,14 +49,17 @@ class AutoStartOnBoot(object):
         systemctl start autologin@tty1
         """
         if not os.path.isdir(TTY1_DIR):
+            print('Creating a directory {}'.format(TTY1_DIR))
             os.makedirs(TTY1_DIR)
         # if not os.path.isfile(TTY1_FILE):
         shutil.copy(SRC_FILE, TTY1_DIR)  # Overwrite
+        print('  Installed file {}'.format(SRC_FILE))
 
 
 if __name__ == "__main__":
-    print('Running systemd.py ...')
+    print('Running Install/systemd.py ...')
     l_boot = AutoStartOnBoot()
     l_boot.detect_systemd()
+    print('Finished systemd.py\n')
 
 # ## END DBK
