@@ -45,6 +45,7 @@ class Jessie(object):
         pass
 
     def upgrade(self):
+        print('Jessis is being updated/upgraded next.')
         pass
 
 
@@ -77,7 +78,7 @@ class Repositories(object):
     """
 
     def add_all(self):
-        pass
+        print('Adding all PyHouse repositories from github')
 
 
 class User(object):
@@ -99,6 +100,7 @@ class User(object):
             self._add_user()
 
     def add_user(self):
+        print('Adding user "pyhouse" now.')
         self._test_user()
 
 
@@ -110,7 +112,7 @@ class Sys(object):
     def Scratch():
         """Install from scratch for a newly made jessie image.
         """
-        print("Running - Scratch install.")
+        print("Running - setup install.")
         # test then install a 'pyhouse' user
         Jessie().upgrade()
         User().add_user()

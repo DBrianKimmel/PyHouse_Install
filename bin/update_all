@@ -1,0 +1,33 @@
+!/bin/bash
+# @name:      PyHouse_Install/bin/update_all
+# @author:    D. Brian Kimmel
+# @contact:   D.BrianKimmel@gmail.com
+# @copyright: (c) 2015-2015 by D. Brian Kimmel
+# @license:   MIT License
+# @note:      Created on Oct 20, 2015
+# @Summary:   This updates the entire PyHouse code
+#
+# as user pyhouse (sudo su pyhouse -l) run: 
+#
+#   sudo bin/update_all
+#
+# This will update the PyHouse_Install package on your computer.
+# The PyHouse_Install package contains all the bin files for you to run the entire PyHouse System.
+#
+
+
+echo "Updating all PyHouse repositoris"
+WORK='/home/pyhouse/workspace/'
+cd ${WORK}PyHouse
+git pull
+git checkout
+sudo python3 ${WORK}PyHouse_Install/src/Update/update.py
+
+cd ${WORK}PyHouse_Install
+git pull
+git checkout
+sudo python3 ${WORK}PyHouse_Install/src/Update/update.py
+
+echo "Finished updating all PyHouse... repositories\n"
+
+### END DBK

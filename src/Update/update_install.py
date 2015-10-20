@@ -1,5 +1,5 @@
 """
-@name:      PyHouse_Install/src/Update/update.py
+@name:      PyHouse_Install/src/Update/update_install.py
 @author:    D. Brian Kimmel
 @contact:   D.BrianKimmel@gmail.com
 @copyright: (c) 2015-2015 by D. Brian Kimmel
@@ -49,9 +49,9 @@ class Base(object):
 
 
 if __name__ == "__main__":
-    print('Running Update/update.py ...')
+    print('Running Update/update_install.py ...')
     l_base = Base()
     l_base.make_bin_dir()
-    print('Finished update.py')
+    print('Finished update_install.py')
 
 # ## END DBK
