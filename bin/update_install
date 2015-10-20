@@ -22,7 +22,7 @@ WORK='/home/pyhouse/workspace/PyHouse_Install'
 cd ${WORK}
 git pull
 git checkout
-sudo python3 ${WORK}/src/Update/update.py
+sudo python3 ${WORK}/src/Update/update_install.py
 echo "Finished updating PyHouse_Install"
 
 ### END DBK
