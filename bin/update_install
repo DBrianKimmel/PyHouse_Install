@@ -1,4 +1,5 @@
 #!/bin/bash
+#
 # @name:      PyHouse_Install/bin/update_install
 # @author:    D. Brian Kimmel
 # @contact:   D.BrianKimmel@gmail.com
@@ -6,6 +7,15 @@
 # @license:   MIT License
 # @note:      Created on Oct 15, 2015
 # @Summary:   This updates the PyHouse_Install package
+#
+# as user pyhouse (sudo su pyhouse -l) run: 
+#
+#   sudo bin/update_install
+#
+# This will update the PyHouse_Install package on your computer.
+# The PyHouse_Install package contains all the bin files for you to run the entire PyHouse System.
+#
+
 
 WORK=/home/pyhouse/workspace/PyHouse_Install
 

@@ -1,4 +1,5 @@
 #!/bin/bash
+#
 # @name:      PyHouse_Install/bin/start_pyhouse
 # @author:    D. Brian Kimmel
 # @contact:   D.BrianKimmel@gmail.com
@@ -6,6 +7,7 @@
 # @license:   MIT License
 # @note:      Created on Oct 19, 2015
 # @Summary:   This starts PyHouse
+
 
 WORK=/home/pyhouse/workspace/PyHouse/
 
