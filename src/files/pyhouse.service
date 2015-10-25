@@ -1,20 +1,27 @@
-# This is to start PyHouse upon the system booting.
+# @name:      PyHouse_Install/src/files/pyhouse.service
+# @author:    D. Brian Kimmel
+# @contact:   D.BrianKimmel@gmail.com
+# @copyright: (c) 2015-2015 by D. Brian Kimmel
+# @license:   MIT License
+# @note:      Created on Oct 21, 2015
+# @Summary:   This is to start PyHouse upon the system booting.
+#             Install in ~/.config/systemd/user/pyhouse.service
 
 [Unit]
 Description=PyHouse boot script
 Documentation=http://pyhouse.org
 ConditionPathExists=/etc/pyhouse
-
-[Service]
-#Type=oneshot
-Type=forking
-Restart=no
-TimeoutSec=0
-#IgnoreSIGPIPE=no
-ExecStart=/etc/init.d/raspi-config start
-ExecStop=/etc/init.d/raspi-config stop
+ConditionPathExists=/var/log/pyhouse
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=default.target
+
+[Service]
+Type=simple
+Restart=always
+TimeoutStartSec=20
+TimeoutStopSec=30
+ExecStart=/home/pyhouse/bin/start_pyhouse
+ExecStop=/home/pyhouse/bin/stop_pyhouse
 
 ### END DBK

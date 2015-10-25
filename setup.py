@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 @name:      PyHouse_Install/setup.py
@@ -21,6 +21,7 @@ Jessie uses systemd and not the old SystemV init system so this will not work on
 
 # Import system type stuff
 import crypt
+import fileinput
 import os
 import pwd
 import subprocess
@@ -46,7 +47,8 @@ class Jessie(object):
 
     def upgrade(self):
         print('Jessis is being updated/upgraded next.')
-        pass
+        self._update()
+        self._upgrade()
 
 
 class Firewalls(object):
@@ -77,31 +79,60 @@ class Repositories(object):
     """ Setup the repositories
     """
 
+    def _create_workspace(self):
+        pass
+
     def add_all(self):
         print('Adding all PyHouse repositories from github')
+        self._create_workspace()
 
 
 class User(object):
     """ Install the pyhouse user
     """
+    SUDOERS = '/etc/sudoers'
 
-    def _add_sudoers(self):
+    def _change_users(self):
         pass
 
-    def _add_user(self):
+    def _add_sudoers(self):
+        """Put new user into the sudoers file
+        """
+        processing_briank = False
+        processing_pyhouse = False
+        for line in fileinput.input(SUDOERS, inplace = 1):
+            if line.startswith('briank'):
+                processing_briank = True
+            if line.startswith('pyhouse'):
+                processing_pyhouse = True
+            print(line)
+        if not processing_briank:
+            print('brink ALL=(ALL) NOPASSWD: ALL')
+        if processing_pyhouse:
+            print('pyhouse ALL=(ALL) NOPASSWD: ALL')
+
+    def _add_pyhouse(self):
+        """
+        """
         l_passwd = 'ChangeMe'
         l_encrypted = crypt.crypt(l_passwd, '3a')
         os.system('useradd --password ' + l_encrypted + ' --create-home pyhouse')
+        os.system('passwd -e pyhouse')
+        print('Added user "pyhouse"')
 
-    def _test_user(self):
+    def _do_user(self):
+        """ Do everything to add a pyhouse user.
+        """
         try:
             pwd.getpwnam('pyhouse')
         except KeyError:
             self._add_user()
+            self._add_sudoers()
+        self._change_users()
 
     def add_user(self):
         print('Adding user "pyhouse" now.')
-        self._test_user()
+        self._do_user()
 
 
 class Sys(object):

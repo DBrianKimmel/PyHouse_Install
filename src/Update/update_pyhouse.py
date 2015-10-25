@@ -27,7 +27,7 @@ class Base(object):
 
 if __name__ == "__main__":
     print('Running Update/update_pyhouse.py ...')
-    print('Finished update_pyhouse.py')
+    print('Finished update_pyhouse.py\n')
 
 # ## END DBK
 
