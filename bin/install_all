@@ -13,6 +13,6 @@
 
 WORK=/home/pyhouse/workspace/PyHouse_Install
 
-sudo python3 ${WORK}/src/Install/install_first.py
+sudo python3 ${WORK}/src/Update/update_install
 
 ### END DBK
