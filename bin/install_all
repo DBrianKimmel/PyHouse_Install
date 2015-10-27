@@ -14,5 +14,6 @@
 WORK=/home/pyhouse/workspace/PyHouse_Install
 
 sudo python3 ${WORK}/src/Update/update_install.py
+sudo python3 ${WORK}/src/Update/update_pyhouse.py
 
 ### END DBK
