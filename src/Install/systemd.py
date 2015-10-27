@@ -19,7 +19,8 @@ import shutil
 SYSTEMD_DIR = '/etc/systemd/system/'
 TTY1_DIR = '/etc/systemd/system/getty@tty1.service.d/'
 TTY1_FILE = '/etc/systemd/system/getty@tty1.service.d/autologin.conf'
-SRC_FILE = '/home/pyhouse/workspace/PyHouse_Install/src/files/autologin.conf'
+HOME_DIR = '/home/pyhouse/'
+SRC_FILE = HOME_DIR + 'workspace/PyHouse_Install/src/files/autologin.conf'
 
 
 class AutoStartOnBoot(object):
