@@ -6,5 +6,13 @@
 # @license:   MIT License
 # @note:      Created on Oct 16, 2015
 # @Summary:   This installs the entire PyHouse code
+#
+# Must be run as a user that can sudo to root.
+# This will perform the sudo for that user.
+
+
+WORK=/home/pyhouse/workspace/PyHouse
+
+sudo python3 ${WORK}/src/Update/install_first.py
 
 ### END DBK

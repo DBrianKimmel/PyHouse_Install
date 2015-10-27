@@ -11,7 +11,11 @@
 
 It must be run as root:
 
-    sudo python setup install
+    Login as any uer with sudo powers.\
+    Copy this program to your home directory
+    Run me by
+
+        sudo python3 setup install
 
 Examine the code closely
 
@@ -26,6 +30,23 @@ import os
 import pwd
 import subprocess
 import sys
+
+SUDOERS = '/etc/sudoers'
+SUDO_DIR = ' /etc/sudoers.d/'
+HOME_DIR = '/home/pyhouse/'
+WORKSPACE_DIR = HOME_DIR + 'workspace/'
+
+class cd:
+    """Context manager for changing the current working directory"""
+    def __init__(self, p_new_path):
+        self.m_new_path = os.path.expanduser(p_new_path)
+
+    def __enter__(self):
+        self.m_saved_path = os.getcwd()
+        os.chdir(self.m_new_path)
+
+    def __exit__(self, etype, value, traceback):
+        os.chdir(self.m_saved_path)
 
 
 class Jessie(object):
@@ -80,6 +101,12 @@ class Repositories(object):
     """
 
     def _create_workspace(self):
+        with cd(WORKSPACE_DIR):
+           # we are in ~/Library
+           print('  Current Directory: {}'.format(os.getcwd()))
+           subprocess.call(['git', 'clone', 'http://github.com/DBrianKimmel/PyHouse_Install.git'])
+           subprocess.call(['git', 'clone', 'http://github.com/DBrianKimmel/PyHouse.git'])
+        # outside the context manager we are back wherever we started.
         pass
 
     def add_all(self):
@@ -87,52 +114,69 @@ class Repositories(object):
         self._create_workspace()
 
 
+
+class Hostname(object):
+    """
+    """
+
+    def change(self):
+        pass
+
+
 class User(object):
     """ Install the pyhouse user
     """
-    SUDOERS = '/etc/sudoers'
 
-    def _change_users(self):
-        pass
+    @staticmethod
+    def _create_workspace(p_user):
+        l_dir = WORKSPACE_DIR
+        l_user = pwd.getpwnam('pyhouse')
+        if not os.path.isdir(l_dir):
+            print('Creating a directory {}'.format(l_dir))
+            os.makedirs(l_dir)
+            os.chown(l_dir, l_user.pw_uid, l_user.pw_gid)
 
-    def _add_sudoers(self):
+    @staticmethod
+    def _update_sudoers(p_user):
         """Put new user into the sudoers file
         """
-        processing_briank = False
-        processing_pyhouse = False
+        processing_user = False
         for line in fileinput.input(SUDOERS, inplace = 1):
-            if line.startswith('briank'):
-                processing_briank = True
-            if line.startswith('pyhouse'):
-                processing_pyhouse = True
+            if line.startswith(p_user):
+                processing_user = True
             print(line)
-        if not processing_briank:
-            print('brink ALL=(ALL) NOPASSWD: ALL')
-        if processing_pyhouse:
-            print('pyhouse ALL=(ALL) NOPASSWD: ALL')
+        if processing_user:
+            print('{} ALL=(ALL) NOPASSWD: ALL'.format(p_user))
+        fileinput.close()
 
-    def _add_pyhouse(self):
+    @staticmethod
+    def _add_user(p_user):
         """
         """
         l_passwd = 'ChangeMe'
         l_encrypted = crypt.crypt(l_passwd, '3a')
-        os.system('useradd --password ' + l_encrypted + ' --create-home pyhouse')
-        os.system('passwd -e pyhouse')
-        print('Added user "pyhouse"')
+        os.system('useradd --password {} --create-home {}'.format(l_encrypted, p_user))
+        os.system('passwd -e {}'.format(p_user))
+        print('Added user "{}"'.format(p_user))
 
-    def _do_user(self):
+    @staticmethod
+    def _do_user_create(p_user):
         """ Do everything to add a pyhouse user.
         """
         try:
-            pwd.getpwnam('pyhouse')
+            pwd.getpwnam(p_user)
+            print('User "{}" already exixts!'.format(p_user))
         except KeyError:
-            self._add_user()
-            self._add_sudoers()
-        self._change_users()
+            User._add_user(p_user)
 
-    def add_user(self):
-        print('Adding user "pyhouse" now.')
-        self._do_user()
+    @staticmethod
+    def add_one_user(p_user):
+        """ This will add the pyhouse user
+        """
+        print('Adding user "{}" now.'.format(p_user))
+        User._do_user_create(p_user)
+        # User._update_sudoers(p_user)
+        User._create_workspace(p_user)
 
 
 class Sys(object):
@@ -145,8 +189,8 @@ class Sys(object):
         """
         print("Running - setup install.")
         # test then install a 'pyhouse' user
-        Jessie().upgrade()
-        User().add_user()
+        # Jessie().upgrade()
+        User.add_one_user('pyhouse')
         Repositories().add_all()
         AutoStart().configure()
         Firewalls().add_both()

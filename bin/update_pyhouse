@@ -17,6 +17,7 @@ echo "Updating PyHouse ..."
 cd ${WORK}
 git pull
 git checkout develop
+
 ##### sudo python3 ${WORK}/src/Update/update.py
 echo "Finished updating PyHouse"
 

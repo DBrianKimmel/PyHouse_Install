@@ -30,6 +30,3 @@ if __name__ == "__main__":
     print('Finished update_pyhouse.py\n')
 
 # ## END DBK
-
-
-# ## END DBK
