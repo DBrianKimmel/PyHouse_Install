@@ -11,7 +11,7 @@
 # This will perform the sudo for that user.
 
 
-WORK=/home/pyhouse/workspace/PyHouse
+WORK=/home/pyhouse/workspace/PyHouse_Install
 
 sudo python3 ${WORK}/src/Update/install_first.py
 
