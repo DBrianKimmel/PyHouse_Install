@@ -27,6 +27,9 @@ class Base(object):
     """
     """
 
+    def make_pyhouse_dialout(self):
+        pass
+
     def make_etc_dir(self):
         utilUtil.MakeDir('/etc/pyhouse/', 'pyhouse')
 
