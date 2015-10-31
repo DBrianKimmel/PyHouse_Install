@@ -16,7 +16,7 @@ import shutil
 import stat
 
 # Import PyHouseInstall files and modules.
-from Install.Utility import Utilities as utilUtil
+from src.Install.Utility import Utilities as utilUtil
 
 HOME_DIR = '/home/pyhouse/'
 BIN_DIR = HOME_DIR + 'bin/'
