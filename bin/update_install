@@ -19,14 +19,13 @@
 
 HOME_DIR='/home/pyhouse/'
 WORK_DIR=${HOME_DIR}workspace/
-
-WORK='/home/pyhouse/workspace/PyHouse_Install'
+INSTALL_DIR=${WORK_DIR}PyHouse_Install/
 
 echo "--Running update_install shell script now ..."
-cd ${WORK}
+cd ${INSTALL_DIR}
 git pull
 git checkout
-sudo python3 ${WORK}/src/Update/update_install.py
+sudo python3 src/Update/update_install.py
 echo "--Finished update_install shell script."
 echo " "
 
