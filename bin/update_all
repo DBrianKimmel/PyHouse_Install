@@ -19,22 +19,8 @@ HOME_DIR='/home/pyhouse/'
 WORK_DIR=${HOME_DIR}workspace/
 
 echo "-Updating all PyHouse repositories shell script."
-bin/update_pyhouse
-
 bin/update_install
-
-#echo "Updating all PyHouse repositories shell script."
-#cd ${WORK_DIR}PyHouse
-#git pull
-#git checkout
-#sudo python3 ${WORK_DIR}PyHouse_Install/src/Update/update_pyhouse.py
-#--
-#echo "  Updating PyHouse_Install repository"
-#cd ${WORK_DIR}PyHouse_Install
-#git pull
-#git checkout
-#sudo python3 ${WORK_DIR}PyHouse_Install/src/Update/update_install.py
-
+bin/update_pyhouse
 echo "-Finished updating all PyHouse... repositories"
 echo " "
 

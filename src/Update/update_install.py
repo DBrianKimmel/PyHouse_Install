@@ -23,7 +23,7 @@ BIN_DIR = HOME_DIR + 'bin/'
 INSTALL_DIR = HOME_DIR + 'workspace/PyHouse_Install/bin'
 
 
-class Base(object):
+class Api(object):
     """
     """
 
@@ -37,11 +37,9 @@ class Base(object):
         utilUtil.MakeDir('/var/log/pyhouse/', 'pyhouse')
 
     def make_bin_dir(self):
+        utilUtil.MakeDir('bin', 'pyhouse')
         l_user = pwd.getpwnam('pyhouse')
-        if not os.path.isdir(BIN_DIR):
-            print('Creating a directory {}'.format(BIN_DIR))
-            os.makedirs(BIN_DIR)
-            os.chown(BIN_DIR, l_user.pw_uid, l_user.pw_gid)
+
         for l_entry in os.listdir(INSTALL_DIR):
             l_file = os.path.join(INSTALL_DIR, l_entry)
             l_target = os.path.join(BIN_DIR, l_entry)
@@ -69,14 +67,17 @@ class Base(object):
         os.chown(l_dest, l_user.pw_uid, l_user.pw_gid)
         print('  Copied file "{}" to "{}"'.format(l_src, l_dest))
 
+    def update(self):
+        self.make_bin_dir()
+        self.copy_pyhouse_service()
+        self.make_etc_dir()
+        self.make_log_dir()
+
 
 if __name__ == "__main__":
     print('---Running Update/update_install.py ...')
-    l_base = Base()
-    l_base.make_bin_dir()
-    l_base.copy_pyhouse_service()
-    l_base.make_etc_dir()
-    l_base.make_log_dir()
+    l_api = Api()
+    l_api.update()
     print('---Finished update_install.py\n')
 
 # ## END DBK
