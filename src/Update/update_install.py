@@ -81,7 +81,7 @@ class Api(object):
         l_user = pwd.getpwnam('pyhouse')
         l_file = 'pyhouse.service'
         l_dir = HOME_DIR + '.config/systemd/user/'
-        l_src = HOME_DIR + 'workspace/files/' + l_file
+        l_src = HOME_DIR + 'workspace/PyHouse_Install/files/' + l_file
         l_dest = os.path.join(l_dir, l_file)
         if not os.path.isdir(l_dir):
             print('Creating a directory {}'.format(l_dir))
