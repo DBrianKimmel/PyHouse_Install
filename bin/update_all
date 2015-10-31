@@ -9,29 +9,33 @@
 #
 # as user pyhouse (sudo su pyhouse -l) run: 
 #
-#   sudo bin/update_all
+#   bin/update_all
 #
 # This will update the PyHouse_Install package on your computer.
 # The PyHouse_Install package contains all the bin files for you to run the entire PyHouse System.
 #
 
+HOME_DIR='/home/pyhouse/'
+WORK_DIR=${HOME_DIR}workspace/
 
-echo "Updating all PyHouse repositories"
+echo "-Updating all PyHouse repositories shell script."
+bin/update_pyhouse
 
-echo "  Updating PyHouse repository"
-WORK='/home/pyhouse/workspace/'
-cd ${WORK}PyHouse
-git pull
-git checkout
-sudo python3 ${WORK}PyHouse_Install/src/Update/update_pyhouse.py
+bin/update_install
 
-echo "  Updating PyHouse_Install repository"
-cd ${WORK}PyHouse_Install
-git pull
-git checkout
-sudo python3 ${WORK}PyHouse_Install/src/Update/update_install.py
+#echo "Updating all PyHouse repositories shell script."
+#cd ${WORK_DIR}PyHouse
+#git pull
+#git checkout
+#sudo python3 ${WORK_DIR}PyHouse_Install/src/Update/update_pyhouse.py
+#--
+#echo "  Updating PyHouse_Install repository"
+#cd ${WORK_DIR}PyHouse_Install
+#git pull
+#git checkout
+#sudo python3 ${WORK_DIR}PyHouse_Install/src/Update/update_install.py
 
-echo "Finished updating all PyHouse... repositories"
+echo "-Finished updating all PyHouse... repositories"
 echo " "
 
 ### END DBK

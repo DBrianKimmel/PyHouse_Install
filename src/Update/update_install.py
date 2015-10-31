@@ -71,12 +71,12 @@ class Base(object):
 
 
 if __name__ == "__main__":
-    print('Running Update/update_install.py ...')
+    print('---Running Update/update_install.py ...')
     l_base = Base()
     l_base.make_bin_dir()
     l_base.copy_pyhouse_service()
     l_base.make_etc_dir()
     l_base.make_log_dir()
-    print('Finished update_install.py\n')
+    print('---Finished update_install.py\n')
 
 # ## END DBK

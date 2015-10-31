@@ -8,17 +8,20 @@
 # @note:      Created on Oct 15, 2015
 # @Summary:   This updates the PyHouse package
 #
-# 
 
+HOME_DIR='/home/pyhouse/'
+WORK_DIR=${HOME_DIR}workspace/
 
 WORK=/home/pyhouse/workspace/PyHouse
 
-echo "Updating PyHouse ..."
-cd ${WORK}
+echo "--Running update_pyhouse shell script now ..."
+cd ${WORK_DIR}PyHouse
 git pull
 git checkout develop
 
-##### sudo python3 ${WORK}/src/Update/update.py
-echo "Finished updating PyHouse"
+sudo python3 ${WORK}PyHouse_Install/src/Update/update_pyhouse.py
+
+echo "--Finished running update_pyhouse shell script."
+echo " "
 
 ### END DBK

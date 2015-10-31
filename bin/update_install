@@ -17,12 +17,17 @@
 #
 
 
-echo "Updating PyHouse_Install..."
+HOME_DIR='/home/pyhouse/'
+WORK_DIR=${HOME_DIR}workspace/
+
 WORK='/home/pyhouse/workspace/PyHouse_Install'
+
+echo "--Running update_install shell script now ..."
 cd ${WORK}
 git pull
 git checkout
 sudo python3 ${WORK}/src/Update/update_install.py
-echo "Finished updating PyHouse_Install"
+echo "--Finished update_install shell script."
+echo " "
 
 ### END DBK
