@@ -1,5 +1,5 @@
 #! /usr/bin/env python3
-# -*- coding: utf-8 -*-
+#  -*- coding: utf-8 -*-
 """
 @name:      PyHouse_Install/setup.py
 @author:    D. Brian Kimmel
@@ -23,7 +23,7 @@ Jessie uses systemd and not the old SystemV init system so this will not work on
 
 """
 
-# Import system type stuff
+#  Import system type stuff
 import crypt
 import fileinput
 import os
@@ -54,16 +54,10 @@ class Jessie(object):
     """
 
     def _update(self):
-        try:
-            retcode = call("apt-get" + " update", shell = True)
-            if retcode < 0:
-                print("Child was terminated by signal {}".format(retcode))
-            else:
-                print >> sys.stderr, "Child returned", retcode
-        except OSError as e:
-            print >> sys.stderr, "Execution failed:", e
+        subprocess.call(['sudo', 'apt-get', 'update'])
 
     def _upgrade(self):
+        subprocess.call(['sudo', 'apt-get', '-y', 'dist-upgrade'])
         pass
 
     def upgrade(self):
@@ -102,11 +96,11 @@ class Repositories(object):
 
     def _create_workspace(self):
         with cd(WORKSPACE_DIR):
-           # we are in ~/Library
+           #  we are in ~/Library
            print('  Current Directory: {}'.format(os.getcwd()))
            subprocess.call(['git', 'clone', 'http://github.com/DBrianKimmel/PyHouse_Install.git'])
            subprocess.call(['git', 'clone', 'http://github.com/DBrianKimmel/PyHouse.git'])
-        # outside the context manager we are back wherever we started.
+        #  outside the context manager we are back wherever we started.
         pass
 
     def add_all(self):
@@ -165,7 +159,7 @@ class User(object):
         """
         try:
             pwd.getpwnam(p_user)
-            print('User "{}" already exixts!'.format(p_user))
+            print('User "{}" already exixts!  Skipping Add'.format(p_user))
         except KeyError:
             User._add_user(p_user)
 
@@ -175,7 +169,7 @@ class User(object):
         """
         print('Adding user "{}" now.'.format(p_user))
         User._do_user_create(p_user)
-        # User._update_sudoers(p_user)
+        #  User._update_sudoers(p_user)
         User._create_workspace(p_user)
 
 
@@ -184,20 +178,34 @@ class Sys(object):
     """
 
     @staticmethod
+    def SetupTools():
+        print('  Current Directory: {}'.format(os.getcwd()))
+        subprocess.call(['wget', 'https://bootstrap.pypa.io/ez_setup.py'])
+        subprocess.call(['echo ', 'sudo python'])
+
+    @staticmethod
+    def AddSoftware():
+        print('  Add Software.')
+        subprocess.call('sudo apt-get -y install gcc', shell = True)
+        subprocess.call('sudo apt-get -y install python-pip', shell = True)
+
+    @staticmethod
     def Scratch():
         """Install from scratch for a newly made jessie image.
         """
-        print("Running - setup install.")
-        # test then install a 'pyhouse' user
-        # Jessie().upgrade()
-        User.add_one_user('pyhouse')
-        Repositories().add_all()
-        AutoStart().configure()
-        Firewalls().add_both()
+        print("  Running - setup install step 1.")
+        #  test then install a 'pyhouse' user
+        #  Jessie().upgrade()
+        #  User.add_one_user('pyhouse')
+        #  Sys.SetupTools()
+        Sys.AddSoftware()
+        #  Repositories().add_all()
+        #  AutoStart().configure()
+        #  Firewalls().add_both()
 
 
 if __name__ == "__main__":
-    print('Setup install of PyHouse_Install.  This will set up your entire system.')
+    print('Setup install of PyHouse_Install.  This will set up your entire PyHouse system on this computer.')
     Sys.Scratch()
 
-# ## END DBK
+#  ## END DBK

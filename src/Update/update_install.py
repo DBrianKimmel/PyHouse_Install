@@ -19,8 +19,9 @@ import stat
 # from Install.Utility import Utilities as utilUtil
 
 HOME_DIR = '/home/pyhouse/'
-BIN_DIR = HOME_DIR + 'bin/'
-INSTALL_DIR = HOME_DIR + 'workspace/PyHouse_Install/bin'
+WORKSPACE_DIR = HOME_DIR + 'workspace/'
+HOME_BIN_DIR = HOME_DIR + 'bin/'
+INSTALL_DIR = WORKSPACE_DIR + 'PyHouse_Install/bin'
 
 
 class Utilities(object):
@@ -60,14 +61,14 @@ class Api(object):
     def make_log_dir(self):
         Utilities.MakeDir('/var/log/pyhouse/', 'pyhouse')
 
-    def make_bin_dir(self):
+    def make_HOME_BIN_DIR(self):
         Utilities.MakeDir('bin', 'pyhouse')
         l_user = pwd.getpwnam('pyhouse')
 
         for l_entry in os.listdir(INSTALL_DIR):
             l_file = os.path.join(INSTALL_DIR, l_entry)
-            l_target = os.path.join(BIN_DIR, l_entry)
-            shutil.copy(l_file, BIN_DIR)
+            l_target = os.path.join(HOME_BIN_DIR, l_entry)
+            shutil.copy(l_file, HOME_BIN_DIR)
             try:
                 os.chmod(l_target, stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR | stat.S_IRGRP | stat.S_IXGRP | stat.S_IROTH | stat.S_IXOTH)
                 os.chown(l_target, l_user.pw_uid, l_user.pw_gid)
@@ -92,7 +93,7 @@ class Api(object):
         print('  Copied file "{}" to "{}"'.format(l_src, l_dest))
 
     def update(self):
-        self.make_bin_dir()
+        self.make_HOME_BIN_DIR()
         self.copy_pyhouse_service()
         self.make_etc_dir()
         self.make_log_dir()

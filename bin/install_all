@@ -13,8 +13,10 @@
 
 WORK=/home/pyhouse/workspace/PyHouse_Install
 
-sudo python3 ${WORK}/src/Update/update_install.py
-sudo python3 ${WORK}/src/Install/systemd.py
-sudo python3 ${WORK}/src/Update/update_pyhouse.py
+sudo python3 ${WORK}/src/Install/add_user.py
+
+#sudo python3 ${WORK}/src/Update/update_install.py
+#sudo python3 ${WORK}/src/Install/systemd.py
+#sudo python3 ${WORK}/src/Update/update_pyhouse.py
 
 ### END DBK

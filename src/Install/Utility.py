@@ -17,7 +17,6 @@ except ImportError:
     import Install.test.win_pwd as pwd
 
 
-
 class Utilities(object):
     """
     """
