@@ -15,7 +15,7 @@ It must be run as root:
     Copy this program to your home directory
     Run me by
 
-        sudo python3 setup install
+        sudo python3 setup.py install
 
 Examine the code closely
 
@@ -54,16 +54,27 @@ class Jessie(object):
     """
 
     def _update(self):
-        subprocess.call(['sudo', 'apt-get', 'update'])
+        print('  Update Raspbian')
+        subprocess.call(['sudo', 'apt-get', 'q', 'update'])
 
     def _upgrade(self):
-        subprocess.call(['sudo', 'apt-get', '-y', 'dist-upgrade'])
-        pass
+        print('  Upgrade Raspbian')
+        subprocess.call(['sudo', 'apt-get', '-yq', 'upgrade'])
+
+    def _dist_upgrade(self):
+        print('  Dist Upgrade Raspbian')
+        subprocess.call(['sudo', 'apt-get', '-yq', 'dist-upgrade'])
+
+    def _autoremove(self):
+        print('  AutoRemove Raspbian')
+        subprocess.call(['sudo', 'apt-get', '-yq', 'autoremove'])
 
     def upgrade(self):
-        print('Jessis is being updated/upgraded next.')
+        print(' Jessis is being updated/upgraded next.')
         self._update()
         self._upgrade()
+        self._dist_upgrade()
+        self._autoremove()
 
 
 class Firewalls(object):
@@ -71,12 +82,14 @@ class Firewalls(object):
     """
 
     def _v4(self):
-        pass
+        print(' --IPv4 firewall programs missing.')
 
     def _v6(self):
-        pass
+        print(' --IPv4 firewall programs missing.')
 
     def add_both(self):
+        print('')
+        print('Firewall setup.')
         self._v4()
         self._v6()
 
@@ -104,7 +117,7 @@ class Repositories(object):
         pass
 
     def add_all(self):
-        print('Adding all PyHouse repositories from github')
+        print('  Adding all PyHouse repositories from github')
         self._create_workspace()
 
 
@@ -151,7 +164,8 @@ class User(object):
         l_encrypted = crypt.crypt(l_passwd, '3a')
         os.system('useradd --password {} --create-home {}'.format(l_encrypted, p_user))
         os.system('passwd -e {}'.format(p_user))
-        print('Added user "{}"'.format(p_user))
+        print('Added user "{}" with password {}'.format(p_user, l_passwd))
+        print('You MUST now change that password.')
 
     @staticmethod
     def _do_user_create(p_user):
@@ -196,12 +210,12 @@ class Sys(object):
         print("  Running - setup install step 1.")
         #  test then install a 'pyhouse' user
         #  Jessie().upgrade()
-        #  User.add_one_user('pyhouse')
+        User.add_one_user('pyhouse')
         #  Sys.SetupTools()
         Sys.AddSoftware()
-        #  Repositories().add_all()
-        #  AutoStart().configure()
-        #  Firewalls().add_both()
+        Repositories().add_all()
+        AutoStart().configure()
+        Firewalls().add_both()
 
 
 if __name__ == "__main__":
