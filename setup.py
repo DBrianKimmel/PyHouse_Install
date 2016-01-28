@@ -136,6 +136,7 @@ class User(object):
 
     @staticmethod
     def _create_workspace(p_user):
+        print(' ')
         l_dir = WORKSPACE_DIR
         l_user = pwd.getpwnam('pyhouse')
         if not os.path.isdir(l_dir):
@@ -147,6 +148,7 @@ class User(object):
     def _update_sudoers(p_user):
         """Put new user into the sudoers file
         """
+        print(' Allowing user {} FULL access to the system via sudo.'.format(p_user))
         processing_user = False
         for line in fileinput.input(SUDOERS, inplace = 1):
             if line.startswith(p_user):
@@ -155,6 +157,7 @@ class User(object):
         if processing_user:
             print('{} ALL=(ALL) NOPASSWD: ALL'.format(p_user))
         fileinput.close()
+        print(' ')
 
     @staticmethod
     def _add_user(p_user):
@@ -164,16 +167,17 @@ class User(object):
         l_encrypted = crypt.crypt(l_passwd, '3a')
         os.system('useradd --password {} --create-home {}'.format(l_encrypted, p_user))
         os.system('passwd -e {}'.format(p_user))
-        print('Added user "{}" with password {}'.format(p_user, l_passwd))
-        print('You MUST now change that password.')
+        print('  Added user "{}" with password {}'.format(p_user, l_passwd))
+        print('  You MUST now change that password.\n')
 
     @staticmethod
     def _do_user_create(p_user):
         """ Do everything to add a pyhouse user.
         """
+        print('  Creating user: {}'.format(p_user))
         try:
             pwd.getpwnam(p_user)
-            print('User "{}" already exixts!  Skipping Add'.format(p_user))
+            print('*** User "{}" already exixts!  Skipping Add'.format(p_user))
         except KeyError:
             User._add_user(p_user)
 
@@ -181,15 +185,35 @@ class User(object):
     def add_one_user(p_user):
         """ This will add the pyhouse user
         """
-        print('Adding user "{}" now.'.format(p_user))
+        print(' Adding user "{}" now.'.format(p_user))
         User._do_user_create(p_user)
-        #  User._update_sudoers(p_user)
+        User._update_sudoers(p_user)
         User._create_workspace(p_user)
+
+
+class Computer(object):
+    """
+    Set up the computer itself
+    """
+
+    def Hostname(self):
+        """
+        Display the current hostname - allow installer to change it.
+        """
+        pass
 
 
 class Sys(object):
     """ This is a director that will run various installation sections.
     """
+
+    @staticmethod
+    def SetupComputer():
+        """
+        Set up the computer:
+            HostName
+        """
+        Computer().Hostname()
 
     @staticmethod
     def SetupTools():
@@ -206,8 +230,13 @@ class Sys(object):
     @staticmethod
     def Scratch():
         """Install from scratch for a newly made jessie image.
+
+        Fixes to install:
+            /etc/apt/apt.conf.d/99timeout
+            /etc/modprobe.d/8192cu.conf
+            /usr/local/bin/update
         """
-        print("  Running - setup install step 1.")
+        print("Running - setup install step 1.")
         #  test then install a 'pyhouse' user
         #  Jessie().upgrade()
         User.add_one_user('pyhouse')
@@ -219,7 +248,7 @@ class Sys(object):
 
 
 if __name__ == "__main__":
-    print('Setup install of PyHouse_Install.  This will set up your entire PyHouse system on this computer.')
+    print('Setup install of PyHouse_Install.  This will set up your entire PyHouse system on this computer.\n')
     Sys.Scratch()
 
 #  ## END DBK

@@ -14,8 +14,9 @@ Crontab to reboot once a week
 
 
 if __name__ == "__main__":
-    print('Running crontab.py ...')
+    print(' Running crontab.py ...')
     l_boot = AutoStartOnBoot()
     l_boot.detect_systemd()
+    print(' Finished crontab.py\n')
 
-# ## END DBK
+#  ## END DBK
