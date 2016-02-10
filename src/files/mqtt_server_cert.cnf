@@ -1,0 +1,26 @@
+#
+[PyHouseExtensions]
+ 	basicConstraints        = critical, CA:FALSE
+    nsCertType              = server
+    keyUsage                = nonRepudiation, digitalSignature, keyEncipherment
+    nsComment               = "Broker (Server) Certificate"
+    subjectKeyIdentifier    = hash
+    authorityKeyIdentifier  = keyid, issuer:always
+    subjectAltName          = $ENV::SUBJALTNAME
+#   issuerAltName           = issuer:copy
+#   nsCaRevocationUrl       = http://pyhouse.org/carevoke/
+#   nsRevocationUrl         = http://pyhouse.org/carevoke/
+#
+# The following extension makes this a:
+#     EV Certificate (a.k.a. Extended Certificate): Extended Validation (EV) certificate
+    certificatePolicies     = ia5org, @polsection
+
+[polsection]
+    policyIdentifier        = 1.3.5.8
+    CPS.1                   = "http://localhost"
+    userNotice.1            = @notice
+
+[notice]
+    explicitText            = "This CA is for a local MQTT broker installation only"
+    organization            = "PyHouse"
+    noticeNumbers           = 1

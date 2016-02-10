@@ -10,11 +10,12 @@
 
 """
 
-import crypt
-import fileinput
+#  Import system stuff
+import Crypto
 import os
 import platform
 import pwd
+import shutil
 import subprocess
 
 SUDOERS = '/etc/sudoers'
@@ -51,17 +52,15 @@ class User(object):
 
     @staticmethod
     def _update_sudoers(p_user):
-        """Put new user into the sudoers file
+        """Put new user into the /etc/sudoers.d
         """
         print(' Allowing user {} FULL access to the system via sudo.'.format(p_user))
-        processing_user = False
-        for line in fileinput.input(SUDOERS, inplace = 1):
-            if line.startswith(p_user):
-                processing_user = True
-            print(line)
-        if processing_user:
-            print('{} ALL=(ALL) NOPASSWD: ALL'.format(p_user))
-        fileinput.close()
+        for l_file in os.listdir('../files'):
+            if l_file.startswith('sudo-'):
+                l_from = l_file[5:]
+                l_to = os.path.join(SUDO_DIR, l_from)
+                shutil.copyfile(l_file, l_to)
+                os.chmod(l_to, 0o440)
         print(' ')
 
     @staticmethod
@@ -69,7 +68,7 @@ class User(object):
         """
         """
         l_passwd = 'ChangeMe'
-        l_encrypted = crypt.crypt(l_passwd, '3a')
+        l_encrypted = Crypto.crypt(l_passwd, '3a')
         os.system('useradd --password {} --create-home {}'.format(l_encrypted, p_user))
         os.system('passwd -e {}'.format(p_user))
         print('  Added user "{}" with password {}'.format(p_user, l_passwd))

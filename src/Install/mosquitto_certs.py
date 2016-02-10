@@ -10,23 +10,25 @@
 """
 
 #  Import system stuff
-import getpass
-import os
+#  import getpass
+#  import os
 import subprocess
 
 #  Import PyHouse stuff
 from Install.Utility import Utilities
 
+RDN_CN = 'PyHouse.Org'
+RDN_L = 'Beverly Hills'
+RDN_ST = 'Florida'
+RDN_C = 'US'
+RDN_OU = 'IT_Devel'
+RDN_O = 'PyHouse'
+
 CERT_DIR = '/etc/pyhouse/ca_certs/'
-CITY = 'Beverly Hills'
-STATE = 'Florida'
-COUNTRY = 'US'
-ORGANIZATION = 'Development'
-UNIT = 'IT'
-CN = 'PyHouse.Org'
 EMAIL = 'NoReply@PyHouse.org'
 DAYS = (365 * 8) + 2  #  8 years (Leap Years included)
 MD = '-sha512'
+KEY_BITS = 2048
 
 
 class Certs(object):
@@ -80,7 +82,7 @@ class Certs(object):
         subprocess.call(['sudo',
                          'openssl', 'genrsa',
                          '-out', CERT_DIR + 'rootCA.key',
-                         '2048'
+                         KEY_BITS
                          ])
         subprocess.call(['sudo',
                          'openssl', 'genrsa',
@@ -90,7 +92,7 @@ class Certs(object):
         subprocess.call(['sudo',
                          'openssl', 'genrsa',
                          '-out', CERT_DIR + 'client.key',
-                         '2048'
+                         KEY_BITS
                          ])
         #  print(' ')
 
@@ -106,12 +108,12 @@ class Certs(object):
                          '-days', '1024',
                          '-out', CERT_DIR + 'rootCA.pem',
                          '-subj',
-                            '/L=' + CITY +
-                            '/ST=' + STATE +
-                            '/C=' + COUNTRY +
-                            '/O=' + ORGANIZATION +
-                            '/OU=' + UNIT +
-                            '/CN=' + CN
+                            '/L=' + RDN_L +
+                            '/ST=' + RDN_ST +
+                            '/C=' + RDN_C +
+                            '/O=' + RDN_O +
+                            '/OU=' + RDN_OU +
+                            '/CN=' + RDN_CN
                           ])
         #  print(' ')
 
@@ -126,12 +128,12 @@ class Certs(object):
                          '-key', CERT_DIR + 'server.key',
                          '-out', CERT_DIR + 'server.csr',
                         '-subj',
-                            '/L=' + CITY +
-                            '/ST=' + STATE +
-                            '/C=' + COUNTRY +
-                            '/O=' + ORGANIZATION +
-                            '/OU=' + UNIT +
-                            '/CN=' + CN
+                            '/L=' + RDN_L +
+                            '/ST=' + RDN_ST +
+                            '/C=' + RDN_C +
+                            '/O=' + RDN_O +
+                            '/OU=' + RDN_OU +
+                            '/CN=' + RDN_CN
                           ])
         subprocess.call(['sudo',
                          'openssl', 'req',
@@ -139,12 +141,12 @@ class Certs(object):
                          '-key', CERT_DIR + 'client.key',
                          '-out', CERT_DIR + 'client.csr',
                         '-subj',
-                            '/L=' + CITY +
-                            '/ST=' + STATE +
-                            '/C=' + COUNTRY +
-                            '/O=' + ORGANIZATION +
-                            '/OU=' + UNIT +
-                            '/CN=' + CN
+                            '/L=' + RDN_L +
+                            '/ST=' + RDN_ST +
+                            '/C=' + RDN_C +
+                            '/O=' + RDN_O +
+                            '/OU=' + RDN_OU +
+                            '/CN=' + RDN_CN
                           ])
         #  print(' ')
 
@@ -176,19 +178,19 @@ class Certs(object):
                     -signkey "/etc/[webserver]/ssl/example.key"  \
                     -out "/etc/[webserver]/ssl/example.crt"
         """
-        print('  Generate a Self Signed Certificate.')
-        subprocess.call(['sudo',
-                         'openssl', 'x509',
+        print('  Generate a Server Self Signed Certificate.')
+        subprocess.call(['sudo', 'openssl', 'x509',
                          '-req',
                          '-days', str(DAYS),
                          '-in', CERT_DIR + 'server.csr',
                          '-signkey', CERT_DIR + 'rootCA.key',
                          '-out', CERT_DIR + 'server.crt'
                           ])
-        subprocess.call(['sudo',
-                         'openssl', 'x509',
+        print('  Generate a Client Self Signed Certificate.')
+        subprocess.call(['sudo', 'openssl', 'x509',
                          '-req',
-                         '-subject',
+                         '-extensions', 'PyHouseExtensions',
+                         '-CAcreateserial',
                          '-days', str(DAYS),
                          '-in', CERT_DIR + 'client.csr',
                          '-signkey', CERT_DIR + 'rootCA.key',
