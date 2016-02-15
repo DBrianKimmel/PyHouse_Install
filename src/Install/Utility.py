@@ -9,7 +9,8 @@
 
 """
 
-# Import system type stuff
+#  Import system type stuff
+import getpass
 import os
 try:
     import pwd
@@ -20,6 +21,13 @@ except ImportError:
 class Utilities(object):
     """
     """
+
+    @staticmethod
+    def must_not_be_root():
+        l_user = getpass.getuser()
+        if l_user == 'root':
+            exit('You must not be root (no sudo)! - Aborting!')
+
 
     @staticmethod
     def get_user_ids(p_user_name):
@@ -39,7 +47,6 @@ class Utilities(object):
             print('Creating a directory {}'.format(p_dir_name))
             os.makedirs(p_dir_name)
             os.chown(p_dir_name, l_uid, l_gid)
-
 
 def getserial():
     # Extract serial from cpuinfo file

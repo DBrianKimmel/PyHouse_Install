@@ -12,10 +12,31 @@ Crontab to reboot once a week
 
 """
 
+#  Import system stuff
+import os
+
+CRON_DIR = '/var/spool/cron/crontabs'
+
+
+class Cron(object):
+    """
+    """
+
+    def is_root_present(self):
+        if not os.path.isdir(CRON_DIR):
+            print('*** ERROR *** There is no cron path at {}'.format(CRON_DIR))
+        else:
+            if os.path.isfile(CRON_DIR + '/root'):
+                pass
+        pass
+
+    def add_weekly_reboot(self):
+        pass
 
 if __name__ == "__main__":
-    print('Running crontab.py ...')
-    l_boot = AutoStartOnBoot()
-    l_boot.detect_systemd()
+    print(' Running crontab.py ...')
+    l_boot = Cron()
+    l_boot.add_weekly_reboot()
+    print(' Finished crontab.py\n')
 
-# ## END DBK
+#  ## END DBK
