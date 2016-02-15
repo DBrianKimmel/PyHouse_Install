@@ -1,0 +1,35 @@
+#
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+
+network={
+        ssid="CannonTrail"
+        psk="Koepfinger-59"
+        key_mgmt=WPA-PSK
+}
+network={
+        ssid="PinkPoppy-1"
+        psk="Koepfinger-59"
+        key_mgmt=WPA-PSK
+}
+network={
+        ssid="PinkPoppy-5G-1"
+        psk="Koepfinger-59"
+        key_mgmt=WPA-PSK
+}
+network={
+        ssid="PinkPoppy-2"
+        psk="Koepfinger-59"
+        key_mgmt=WPA-PSK
+}
+network={
+        ssid="PinkPoppy-5G"
+        psk="Koepfinger-59"
+        key_mgmt=WPA-PSK
+}
+network={
+        ssid="PinkPoppyGuest"
+        psk="Koepfinger-59"
+        key_mgmt=WPA-PSK
+}
+### END DBK

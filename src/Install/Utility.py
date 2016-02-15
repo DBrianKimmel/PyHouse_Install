@@ -40,4 +40,18 @@ class Utilities(object):
             os.makedirs(p_dir_name)
             os.chown(p_dir_name, l_uid, l_gid)
 
+
+def getserial():
+    # Extract serial from cpuinfo file
+    cpuserial = "0000000000000000"
+    try:
+        f = open('/proc/cpuinfo', 'r')
+        for line in f:
+            if line[0:6] == 'Serial':
+                cpuserial = line[10:26]
+        f.close()
+    except:
+        cpuserial = "ERROR000000000"
+    return cpuserial
+
 # ## END DBK
