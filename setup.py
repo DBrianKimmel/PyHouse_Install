@@ -26,6 +26,7 @@ Jessie uses systemd and not the old SystemV init system so this will not work on
 #  Import system type stuff
 import crypt
 import fileinput
+import getpass
 import os
 import pwd
 import subprocess
@@ -181,8 +182,7 @@ class User(object):
         except KeyError:
             User._add_user(p_user)
 
-    @staticmethod
-    def add_one_user(p_user):
+    def add_one_user(self, p_user):
         """ This will add the pyhouse user
         """
         print(' Adding user "{}" now.'.format(p_user))
@@ -207,6 +207,12 @@ class Sys(object):
     """ This is a director that will run various installation sections.
     """
 
+    def CheckRoot(self):
+        l_user = getpass.getuser()
+        if l_user == 'root':
+            exit('You must not be root (no sudo)! - Aborting!')
+        pass
+
     @staticmethod
     def SetupComputer():
         """
@@ -221,14 +227,12 @@ class Sys(object):
         subprocess.call(['wget', 'https://bootstrap.pypa.io/ez_setup.py'])
         subprocess.call(['echo ', 'sudo python'])
 
-    @staticmethod
-    def AddSoftware():
+    def AddSoftware(self):
         print('  Add Software.')
         subprocess.call('sudo apt-get -y install gcc', shell = True)
         subprocess.call('sudo apt-get -y install python-pip', shell = True)
 
-    @staticmethod
-    def Scratch():
+    def Install(self):
         """Install from scratch for a newly made jessie image.
 
         Fixes to install:
@@ -236,19 +240,22 @@ class Sys(object):
             /etc/modprobe.d/8192cu.conf
             /usr/local/bin/update
         """
-        print("Running - setup install step 1.")
+
+        print(" Running setup install.")
+        self.CheckRoot()
         #  test then install a 'pyhouse' user
         #  Jessie().upgrade()
-        User.add_one_user('pyhouse')
+        User().add_one_user('pyhouse')
         #  Sys.SetupTools()
-        Sys.AddSoftware()
+        self.AddSoftware()
         Repositories().add_all()
         AutoStart().configure()
         Firewalls().add_both()
+        print(" Finished setup install.")
 
 
 if __name__ == "__main__":
     print('Setup install of PyHouse_Install.  This will set up your entire PyHouse system on this computer.\n')
-    Sys.Scratch()
+    Sys().Install()
 
 #  ## END DBK
