@@ -15,7 +15,7 @@
 """
 
 #  Import system stuff
-import Crypto
+import crypt.crypt
 import os
 import platform
 import pwd
@@ -74,7 +74,7 @@ class User(object):
         """
         """
         l_passwd = 'ChangeMe'
-        l_encrypted = Crypto.crypt(l_passwd, '3a')
+        l_encrypted = crypt.crypt(l_passwd, '3a')
         os.system('useradd --password {} --create-home {}'.format(l_encrypted, p_user))
         os.system('passwd -e {}'.format(p_user))
         print('  Added user "{}" with password {}'.format(p_user, l_passwd))
