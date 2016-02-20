@@ -32,6 +32,8 @@ import pwd
 import subprocess
 import sys
 
+sys.path.append('src')
+
 # Import PyHouse_Install stuff
 from Install import add_user
 
