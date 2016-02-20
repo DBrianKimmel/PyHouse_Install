@@ -142,7 +142,7 @@ class User(object):
     """
 
     @staticmethod
-    def _create_workspace(p_user):
+    def XXX_create_workspace(p_user):
         print(' ')
         l_dir = WORKSPACE_DIR
         l_user = pwd.getpwnam('pyhouse')
@@ -152,7 +152,7 @@ class User(object):
             os.chown(l_dir, l_user.pw_uid, l_user.pw_gid)
 
     @staticmethod
-    def _update_sudoers(p_user):
+    def XXX_update_sudoers(p_user):
         """Put new user into the sudoers file
         """
         print(' Allowing user {} FULL access to the system via sudo.'.format(p_user))
@@ -178,7 +178,7 @@ class User(object):
         print('  You MUST now change that password.\n')
 
     @staticmethod
-    def _do_user_create(p_user):
+    def XXX_do_user_create(p_user):
         """ Do everything to add a pyhouse user.
         """
         print('  Creating user: {}'.format(p_user))
@@ -188,7 +188,7 @@ class User(object):
         except KeyError:
             User._add_user(p_user)
 
-    def add_one_user(self, p_user):
+    def XXXadd_one_user(self, p_user):
         """ This will add the pyhouse user
         """
         print(' Adding user "{}" now.'.format(p_user))

@@ -6,11 +6,7 @@
 @copyright: (c) 2015-2015 by D. Brian Kimmel
 @license:   MIT License
 @note:      Created Dec 8, 2015
-<<<<<<< HEAD
 @Summary:   Add a 'PyHouse' user.
-=======
-@Summary:   Deal with adding a user to the system.
->>>>>>> f42353fe7f41e51a1c81fefdf5d332424fb260d4
 
 """
 
@@ -30,7 +26,7 @@ class AddUser(object):
     """
 
     def _add_linux(self, p_username):
-        subprocess.call(['adduser', '--disabled-password', p_username])
+        subprocess.call(['sudo ', 'adduser ', '--disabled-login ', p_username])
 
     def _create_ssh(self):
         pass
@@ -74,7 +70,7 @@ class User(object):
         """
         """
         subprocess.call(['sudo', 'adduser ', '--disabled-login', 'pyhouse'])
-        subprocess.call(['sudo', 'usermod ', '-a', '--groups', 'dialout ', 'pyhouse'])
+        subprocess.call(['sudo', 'usermod ', '-a', '--groups ', 'dialout ', 'pyhouse'])
         print('  Added user "{}"'.format(p_user))
         print('  You MUST now change that password.\n')
 
