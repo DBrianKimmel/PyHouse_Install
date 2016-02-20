@@ -77,6 +77,8 @@ class User(object):
         l_encrypted = crypt.crypt(l_passwd, '3a')
         os.system('useradd --password {} --create-home {}'.format(l_encrypted, p_user))
         os.system('passwd -e {}'.format(p_user))
+        subprocess.call(['adduser ', '--disabled-login', 'pyhouse'])
+        subprocess.call(['usermod ', '-a', '--groups', 'dialout ', 'pyhouse'])
         print('  Added user "{}" with password {}'.format(p_user, l_passwd))
         print('  You MUST now change that password.\n')
 
