@@ -73,8 +73,8 @@ class User(object):
     def _add_user(p_user):
         """
         """
-        subprocess.call(['adduser ', '--disabled-login', 'pyhouse'])
-        subprocess.call(['usermod ', '-a', '--groups', 'dialout ', 'pyhouse'])
+        subprocess.call(['sudo', 'adduser ', '--disabled-login', 'pyhouse'])
+        subprocess.call(['sudo', 'usermod ', '-a', '--groups', 'dialout ', 'pyhouse'])
         print('  Added user "{}"'.format(p_user))
         print('  You MUST now change that password.\n')
 
