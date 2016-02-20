@@ -32,6 +32,9 @@ import pwd
 import subprocess
 import sys
 
+# Import PyHouse_Install stuff
+from Install import add_user
+
 SUDOERS = '/etc/sudoers'
 SUDO_DIR = ' /etc/sudoers.d/'
 HOME_DIR = '/home/pyhouse/'
@@ -245,7 +248,7 @@ class Sys(object):
         self.CheckRoot()
         #  test then install a 'pyhouse' user
         #  Jessie().upgrade()
-        User().add_one_user('pyhouse')
+        add_user.User().add_one_user('pyhouse')
         #  Sys.SetupTools()
         self.AddSoftware()
         Repositories().add_all()
