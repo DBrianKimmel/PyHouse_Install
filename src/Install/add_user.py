@@ -15,7 +15,6 @@
 """
 
 #  Import system stuff
-import crypt.crypt
 import os
 import platform
 import pwd
@@ -41,6 +40,7 @@ class AddUser(object):
         print(l_sys)
         if l_sys == 'Linux':
             self._add_linux(p_username)
+
 
 class User(object):
     """ Install the pyhouse user
@@ -73,13 +73,9 @@ class User(object):
     def _add_user(p_user):
         """
         """
-        l_passwd = 'ChangeMe'
-        l_encrypted = crypt.crypt(l_passwd, '3a')
-        os.system('useradd --password {} --create-home {}'.format(l_encrypted, p_user))
-        os.system('passwd -e {}'.format(p_user))
         subprocess.call(['adduser ', '--disabled-login', 'pyhouse'])
         subprocess.call(['usermod ', '-a', '--groups', 'dialout ', 'pyhouse'])
-        print('  Added user "{}" with password {}'.format(p_user, l_passwd))
+        print('  Added user "{}"'.format(p_user))
         print('  You MUST now change that password.\n')
 
     @staticmethod
@@ -101,7 +97,6 @@ class User(object):
         User._do_user_create(p_user)
         User._update_sudoers(p_user)
         User._create_workspace(p_user)
-
 
 
 if __name__ == "__main__":
