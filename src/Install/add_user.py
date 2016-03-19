@@ -63,9 +63,10 @@ class User(object):
                 if l_file.startswith('sudo-'):
                     l_from = os.path.join(l_dir, l_file[5:])
                     l_to = os.path.join(SUDO_DIR, l_from)
+                    print('--files {} -- {}'.format(l_from, l_to))
                     shutil.copyfile(l_file, l_to)
                     os.chmod(l_to, 0o440)
-        except OSError as e_err:
+        except (OSError, IOError) as e_err:
             print(' ** ERROR ** {}'.format(e_err))
         print(' ')
 
