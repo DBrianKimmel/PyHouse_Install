@@ -61,7 +61,7 @@ class User(object):
         try:
             for l_file in os.listdir(l_dir):
                 if l_file.startswith('sudo-'):
-                    l_from = l_file[5:]
+                    l_from = os.path.join(l_dir, l_file[5:])
                     l_to = os.path.join(SUDO_DIR, l_from)
                     shutil.copyfile(l_file, l_to)
                     os.chmod(l_to, 0o440)
