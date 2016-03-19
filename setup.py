@@ -4,18 +4,17 @@
 @name:      PyHouse_Install/setup.py
 @author:    D. Brian Kimmel
 @contact:   D.BrianKimmel@gmail.com
-@copyright: (c) 2015-2015 by D. Brian Kimmel
+@copyright: (c) 2015-2016 by D. Brian Kimmel
 @note:      Created on Oct 16, 2015
 @license:   MIT License
 @summary:   This installs on a new jessie system
 
-It must be run as root:
+It must NOT be run as root:
 
-    Login as any uer with sudo powers.\
-    Copy this program to your home directory
-    Run me by
+Login as any uer with sudo powers.\
 
-        sudo python3 setup.py install
+    git clone https://github.com/DBrianKimmel/PyHouse_Install.git
+    python PyHouse_Install/setup.py install
 
 Examine the code closely
 
@@ -33,9 +32,9 @@ import subprocess
 import sys
 
 sys.path.append('./PyHouse_Install/src')
-print(sys.path)
+#  print(sys.path)
 
-# Import PyHouse_Install stuff
+#  Import PyHouse_Install stuff
 from Install import add_user
 
 SUDOERS = '/etc/sudoers'
@@ -118,15 +117,14 @@ class Repositories(object):
         with cd(WORKSPACE_DIR):
            #  we are in ~/Library
            print('  Current Directory: {}'.format(os.getcwd()))
-           subprocess.call(['git', 'clone', 'http://github.com/DBrianKimmel/PyHouse_Install.git'])
-           subprocess.call(['git', 'clone', 'http://github.com/DBrianKimmel/PyHouse.git'])
+           subprocess.call(['git', 'clone', 'https://github.com/DBrianKimmel/PyHouse_Install.git'])
+           subprocess.call(['git', 'clone', 'https://github.com/DBrianKimmel/PyHouse.git'])
         #  outside the context manager we are back wherever we started.
         pass
 
     def add_all(self):
         print('  Adding all PyHouse repositories from github')
         self._create_workspace()
-
 
 
 class Hostname(object):

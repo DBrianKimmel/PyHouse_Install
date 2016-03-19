@@ -69,8 +69,10 @@ class User(object):
     def _add_user(p_user):
         """
         """
-        subprocess.call(['sudo', 'adduser ', '--disabled-login', 'pyhouse'])
-        subprocess.call(['sudo', 'usermod ', '-a', '--groups ', 'dialout ', 'pyhouse'])
+        print('    add user')
+        subprocess.call(['sudo', 'adduser', '--disabled-login', 'pyhouse'])
+        print('    More groups')
+        subprocess.call(['sudo', 'usermod', '-a', '--groups', 'dialout', 'pyhouse'])
         print('  Added user "{}"'.format(p_user))
         print('  You MUST now change that password.\n')
 
@@ -78,7 +80,7 @@ class User(object):
     def _do_user_create(p_user):
         """ Do everything to add a pyhouse user.
         """
-        print('  Creating user: {}'.format(p_user))
+        print('  Creating user: "{}"'.format(p_user))
         try:
             pwd.getpwnam(p_user)
             print('*** User "{}" already exixts!  Skipping Add'.format(p_user))
