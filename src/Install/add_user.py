@@ -14,11 +14,10 @@
 import os
 import platform
 import pwd
-import shutil
 import subprocess
 
 SUDOERS = '/etc/sudoers'
-SUDO_DIR = ' /etc/sudoers.d/'
+SUDO_DIR = '/etc/sudoers.d/'
 
 
 class AddUser(object):
@@ -46,19 +45,19 @@ class User(object):
     def _create_workspace(p_user):
         print(' ')
         l_dir = '/home/' + p_user + '/workspace'
-        l_user = pwd.getpwnam('pyhouse')
+        #  l_user = pwd.getpwnam('pyhouse')
         if not os.path.isdir(l_dir):
             print('Creating a directory {}'.format(l_dir))
             subprocess.call(['sudo', 'mkdir', l_dir])
             #  os.makedirs(l_dir)
-            subprocess.call(['sudo', 'chown', l_user.pw_uid + ':' + l_user.pw_gid, l_dir])
+            subprocess.call(['sudo', 'chown', p_user + ':' + p_user, l_dir])
             #  os.chown(l_dir, l_user.pw_uid, l_user.pw_gid)
 
     @staticmethod
     def _update_sudoers(p_user):
         """Put new user into the /etc/sudoers.d
         """
-        l_dir = 'PyHouse_Install/src/files'
+        l_dir = './PyHouse_Install/src/files/'
         print(' Allowing user "{}" FULL access to the system via sudo.'.format(p_user))
         try:
             for l_file in os.listdir(l_dir):
