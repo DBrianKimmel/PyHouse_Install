@@ -49,7 +49,9 @@ class User(object):
         l_user = pwd.getpwnam('pyhouse')
         if not os.path.isdir(l_dir):
             print('Creating a directory {}'.format(l_dir))
-            os.makedirs(l_dir)
+            subprocess.call(['sudo', 'mkdir', l_dir])
+            #  os.makedirs(l_dir)
+            subprocess.call(['sudo', 'chown', l_user.pw_uid + ':' + l_user.pw_gid, l_dir])
             os.chown(l_dir, l_user.pw_uid, l_user.pw_gid)
 
     @staticmethod
@@ -61,11 +63,13 @@ class User(object):
         try:
             for l_file in os.listdir(l_dir):
                 if l_file.startswith('sudo-'):
-                    l_from = os.path.join(l_dir, l_file[5:])
-                    l_to = os.path.join(SUDO_DIR, l_from)
+                    l_from = os.path.join(l_dir, l_file)
+                    l_to = os.path.join(SUDO_DIR, l_file[5:])
                     print('--files {} -- {}'.format(l_from, l_to))
-                    shutil.copyfile(l_file, l_to)
-                    os.chmod(l_to, 0o440)
+                    subprocess.call(['sudo', 'cp', l_from, l_to])
+                    #  shutil.copyfile(l_file, l_to)
+                    #  os.chmod(l_to, 0o440)
+                    subprocess.call(['sudo', 'chmod', 0o440, l_to])
         except (OSError, IOError) as e_err:
             print(' ** ERROR ** {}'.format(e_err))
         print(' ')
