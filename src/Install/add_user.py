@@ -56,25 +56,27 @@ class User(object):
     def _update_sudoers(p_user):
         """Put new user into the /etc/sudoers.d
         """
-        print(' Allowing user {} FULL access to the system via sudo.'.format(p_user))
-        for l_file in os.listdir('../files'):
-            if l_file.startswith('sudo-'):
-                l_from = l_file[5:]
-                l_to = os.path.join(SUDO_DIR, l_from)
-                shutil.copyfile(l_file, l_to)
-                os.chmod(l_to, 0o440)
+        l_dir = 'PyHouse_Install/src/files'
+        print(' Allowing user "{}" FULL access to the system via sudo.'.format(p_user))
+        try:
+            for l_file in os.listdir(l_dir):
+                if l_file.startswith('sudo-'):
+                    l_from = l_file[5:]
+                    l_to = os.path.join(SUDO_DIR, l_from)
+                    shutil.copyfile(l_file, l_to)
+                    os.chmod(l_to, 0o440)
+        except OSError as e_err:
+            print(' ** ERROR ** {}'.format(e_err))
         print(' ')
 
     @staticmethod
     def _add_user(p_user):
         """
         """
-        print('    add user')
         subprocess.call(['sudo', 'adduser', '--disabled-login', 'pyhouse'])
-        print('    More groups')
         subprocess.call(['sudo', 'usermod', '-a', '--groups', 'dialout', 'pyhouse'])
         print('  Added user "{}"'.format(p_user))
-        print('  You MUST now change that password.\n')
+        print('  You MUST change that users password.\n')
 
     @staticmethod
     def _do_user_create(p_user):
@@ -89,7 +91,7 @@ class User(object):
 
     @staticmethod
     def add_one_user(p_user):
-        """ This will add the pyhouse user
+        """ This will add the pyhouse user from setup.py
         """
         print(' Adding user "{}" now.'.format(p_user))
         User._do_user_create(p_user)
