@@ -16,6 +16,18 @@ Login as any uer with sudo powers.
     git clone https://github.com/DBrianKimmel/PyHouse_Install.git
     python PyHouse_Install/setup.py install
 
+Then su to the pyhouse user
+
+    sudo su pyhouse -l
+
+and then run the pyhouse installation as that user.
+
+    python workspace/PyHouse_Install/src/install.py
+
+
+
+
+
 Examine the code closely
 
 Jessie uses systemd and not the old SystemV init system so this will not work on anything earlier than jessie (Debian 8)
@@ -123,7 +135,7 @@ class Repositories(object):
 
     def _create_workspace(self):
         with cd(WORKSPACE_DIR):
-           #  we are in ~/Library
+           #  we are in ~/workspace
            print('  Current Directory: {}'.format(os.getcwd()))
            subprocess.call(['git', 'clone', 'https://github.com/DBrianKimmel/PyHouse_Install.git'])
            subprocess.call(['git', 'clone', 'https://github.com/DBrianKimmel/PyHouse.git'])
@@ -241,8 +253,8 @@ class Sys(object):
 
     def AddSoftware(self):
         print('  Add Software.')
-        subprocess.call('sudo apt-get -y install gcc', shell = True)
-        subprocess.call('sudo apt-get -y install python-pip', shell = True)
+        subprocess.call('sudo apt -y install gcc', shell = True)
+        subprocess.call('sudo apt -y install python-pip', shell = True)
 
     def Install(self):
         """Install from scratch for a newly made jessie image.

@@ -9,6 +9,9 @@
 #
 # Must be run as a user that can sudo to root.
 # This will perform the sudo for that user.
+#
+#  cd
+#  workspace/PyHouse_Install/bin/install_all
 
 
 WORK=/home/pyhouse/workspace/PyHouse_Install

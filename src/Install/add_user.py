@@ -43,11 +43,11 @@ class User(object):
 
     @staticmethod
     def _create_workspace(p_user):
-        print(' ')
+        print('  Creating Workspace.')
         l_dir = '/home/' + p_user + '/workspace'
         #  l_user = pwd.getpwnam('pyhouse')
         if not os.path.isdir(l_dir):
-            print('Creating a directory {}'.format(l_dir))
+            print('   Creating a directory {}'.format(l_dir))
             subprocess.call(['sudo', 'mkdir', l_dir])
             #  os.makedirs(l_dir)
             subprocess.call(['sudo', 'chown', p_user + ':' + p_user, l_dir])
@@ -58,18 +58,18 @@ class User(object):
         """Put new user into the /etc/sudoers.d
         """
         l_dir = './PyHouse_Install/src/files/'
-        print(' Allowing user "{}" FULL access to the system via sudo.'.format(p_user))
+        print('  Allowing user "{}" FULL access to the system via sudo.'.format(p_user))
         try:
             for l_file in os.listdir(l_dir):
                 if l_file.startswith('sudo-'):
                     l_from = os.path.join(l_dir, l_file)
                     l_to = os.path.join(SUDO_DIR, l_file[5:])
-                    print('--files "{}" -- "{}"'.format(l_from, l_to))
+                    #  print('--files "{}" -- "{}"'.format(l_from, l_to))
                     subprocess.call(['sudo', 'cp', l_from, l_to])
                     subprocess.call(['sudo', 'chmod', '440', l_to])
         except (OSError, IOError) as e_err:
             print(' ** ERROR ** {}'.format(e_err))
-        print(' ')
+        #  print(' ')
 
     @staticmethod
     def _add_user(p_user):
@@ -87,7 +87,7 @@ class User(object):
         print('  Creating user: "{}"'.format(p_user))
         try:
             pwd.getpwnam(p_user)
-            print('*** User "{}" already exixts!  Skipping Add'.format(p_user))
+            print('   *** User "{}" already exixts!  Skipping Add'.format(p_user))
         except KeyError:
             User._add_user(p_user)
 
