@@ -11,7 +11,7 @@
 
 It must NOT be run as root:
 
-Login as any uer with sudo powers.\
+Login as any uer with sudo powers.
 
     git clone https://github.com/DBrianKimmel/PyHouse_Install.git
     python PyHouse_Install/setup.py install
@@ -35,7 +35,13 @@ sys.path.append('./PyHouse_Install/src')
 #  print(sys.path)
 
 #  Import PyHouse_Install stuff
-from Install import add_user
+try:
+    from Install import add_user
+except:
+    try:
+        from src.Install import add_user
+    except:
+        pass
 
 SUDOERS = '/etc/sudoers'
 SUDO_DIR = ' /etc/sudoers.d/'

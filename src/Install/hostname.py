@@ -15,6 +15,14 @@ Hostname must be set up properly so that X509 certificates woll work as they sho
 import os
 
 
+class Private(object):
+    """ This will get information from the file /etc/pyhouse/.private.config
+    """
+
+    def if_exists(self):
+        return False
+
+
 class Hostname(object):
     """
     """
