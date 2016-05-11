@@ -255,7 +255,7 @@ class Sys(object):
         self.CheckRoot()
         #  test then install a 'pyhouse' user
         #  Jessie().upgrade()
-        add_user.User().add_one_user('pyhouse')
+        add_user().User().add_one_user('pyhouse')
         #  Sys.SetupTools()
         self.AddSoftware()
         Repositories().add_all()
