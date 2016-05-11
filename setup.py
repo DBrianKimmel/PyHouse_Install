@@ -37,11 +37,13 @@ sys.path.append('./PyHouse_Install/src')
 #  Import PyHouse_Install stuff
 try:
     from Install import add_user
-except:
+except ImportError as e_err:
+    print('ERROR -1 {}'.format(e_err))
     try:
         from src.Install import add_user
-    except:
-        pass
+    except ImportError as e_err:
+        print('ERROR -2 {}'.format(e_err))
+
 
 SUDOERS = '/etc/sudoers'
 SUDO_DIR = ' /etc/sudoers.d/'
@@ -255,7 +257,7 @@ class Sys(object):
         self.CheckRoot()
         #  test then install a 'pyhouse' user
         #  Jessie().upgrade()
-        add_user().User().add_one_user('pyhouse')
+        add_user.User().add_one_user('pyhouse')
         #  Sys.SetupTools()
         self.AddSoftware()
         Repositories().add_all()
