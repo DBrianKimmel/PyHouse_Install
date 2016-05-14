@@ -16,11 +16,11 @@ Login as any uer with sudo powers.
     git clone https://github.com/DBrianKimmel/PyHouse_Install.git
     python PyHouse_Install/setup.py install
 
-Then su to the pyhouse user
+Then change to the pyhouse user:
 
     sudo su pyhouse -l
 
-and then run the pyhouse installation as that user.
+and then run the pyhouse installation as that user:
 
     python workspace/PyHouse_Install/src/install.py
 
@@ -160,32 +160,7 @@ class User(object):
     """
 
     @staticmethod
-    def XXX_create_workspace(p_user):
-        print(' ')
-        l_dir = WORKSPACE_DIR
-        l_user = pwd.getpwnam('pyhouse')
-        if not os.path.isdir(l_dir):
-            print('Creating a directory {}'.format(l_dir))
-            os.makedirs(l_dir)
-            os.chown(l_dir, l_user.pw_uid, l_user.pw_gid)
-
-    @staticmethod
-    def XXX_update_sudoers(p_user):
-        """Put new user into the sudoers file
-        """
-        print(' Allowing user {} FULL access to the system via sudo.'.format(p_user))
-        processing_user = False
-        for line in fileinput.input(SUDOERS, inplace = 1):
-            if line.startswith(p_user):
-                processing_user = True
-            print(line)
-        if processing_user:
-            print('{} ALL=(ALL) NOPASSWD: ALL'.format(p_user))
-        fileinput.close()
-        print(' ')
-
-    @staticmethod
-    def _add_user(p_user):
+    def XXX_add_user(p_user):
         """
         """
         l_passwd = 'ChangeMe'
@@ -194,25 +169,6 @@ class User(object):
         os.system('passwd -e {}'.format(p_user))
         print('  Added user "{}" with password {}'.format(p_user, l_passwd))
         print('  You MUST now change that password.\n')
-
-    @staticmethod
-    def XXX_do_user_create(p_user):
-        """ Do everything to add a pyhouse user.
-        """
-        print('  Creating user: {}'.format(p_user))
-        try:
-            pwd.getpwnam(p_user)
-            print('*** User "{}" already exixts!  Skipping Add'.format(p_user))
-        except KeyError:
-            User._add_user(p_user)
-
-    def XXXadd_one_user(self, p_user):
-        """ This will add the pyhouse user
-        """
-        print(' Adding user "{}" now.'.format(p_user))
-        User._do_user_create(p_user)
-        User._update_sudoers(p_user)
-        User._create_workspace(p_user)
 
 
 class Computer(object):
