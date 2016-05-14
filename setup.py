@@ -43,8 +43,8 @@ import pwd
 import subprocess
 import sys
 
-sys.path.append('./PyHouse_Install')
-sys.path.append('./PyHouse_Install/src')
+sys.path.append('/home/pyhouse/workspace/PyHouse_Install')
+sys.path.append('/home/pyhouse/workspace/PyHouse_Install/src')
 print(sys.path)
 
 #  Import PyHouse_Install stuff
