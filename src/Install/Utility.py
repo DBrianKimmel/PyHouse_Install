@@ -44,12 +44,14 @@ class Utilities(object):
     def MakeDir(p_dir_name, p_user_name):
         l_uid, l_gid = Utilities.get_user_ids(p_user_name)
         if not os.path.isdir(p_dir_name):
-            print('Creating a directory {}'.format(p_dir_name))
+            print('    Creating a directory {}'.format(p_dir_name))
             os.makedirs(p_dir_name)
             os.chown(p_dir_name, l_uid, l_gid)
+        else:
+            print('   *** Directory {} already exists.'.format(p_dir_name))
 
 def getserial():
-    # Extract serial from cpuinfo file
+    #  Extract serial from cpuinfo file
     cpuserial = "0000000000000000"
     try:
         f = open('/proc/cpuinfo', 'r')
@@ -61,4 +63,4 @@ def getserial():
         cpuserial = "ERROR000000000"
     return cpuserial
 
-# ## END DBK
+#  ## END DBK
