@@ -20,6 +20,7 @@ import pwd
 import sys
 
 sys.path.append('/home/pyhouse/workspace/PyHouse_Install')
+sys.path.append('/home/pyhouse/workspace/PyHouse_Install/src')
 
 
 #  Import PyHouse_Install stuff
@@ -32,7 +33,7 @@ except ImportError as e_err:
     except ImportError as e_err:
         print('ERROR -2 {}'.format(e_err))
         try:
-            from PyHouse_Install.src.Install import Utility
+            from src.Install import Utility
         except ImportError as e_err:
             print('ERROR -3 {}'.format(e_err))
 
