@@ -14,11 +14,12 @@ This is run after the user 'pyhouse' is created and functional.
 
 """
 
-sys.path.append('/home/pyhouse/workspace/PyHouse_Install')
-
 #  Import system stuff
 import os
 import pwd
+import sys
+
+sys.path.append('/home/pyhouse/workspace/PyHouse_Install')
 
 
 #  Import PyHouse_Install stuff
