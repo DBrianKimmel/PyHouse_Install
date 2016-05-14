@@ -12,6 +12,8 @@
 #  Import system type stuff
 import getpass
 import os
+import subprocess
+
 try:
     import pwd
 except ImportError:
@@ -45,6 +47,7 @@ class Utilities(object):
         l_uid, l_gid = Utilities.get_user_ids(p_user_name)
         if not os.path.isdir(p_dir_name):
             print('    Creating a directory {}'.format(p_dir_name))
+            subprocess.call(['sudo', 'mkdir', p_dir_name])
             os.makedirs(p_dir_name)
             os.chown(p_dir_name, l_uid, l_gid)
         else:
