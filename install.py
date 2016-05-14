@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+#! /usr/bin/env python
 """
 @name:      src/install.py
 @author:    D. Brian Kimmel
@@ -21,13 +21,17 @@ import pwd
 
 #  Import PyHouse_Install stuff
 try:
-    from Install import Utility
+    import Utility
 except ImportError as e_err:
     print('ERROR -1 {}'.format(e_err))
     try:
-        from src.Install import Utility
+        from Install import Utility
     except ImportError as e_err:
         print('ERROR -2 {}'.format(e_err))
+        try:
+            from PyHouse_Install.src.Install import Utility
+        except ImportError as e_err:
+            print('ERROR -3 {}'.format(e_err))
 
 
 HOME_DIR = '/home/pyhouse/'

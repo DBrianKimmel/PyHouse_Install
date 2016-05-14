@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+#! /usr/bin/env python
 #  -*- coding: utf-8 -*-
 """
 @name:      PyHouse_Install/setup.py
@@ -43,18 +43,23 @@ import pwd
 import subprocess
 import sys
 
+sys.path.append('./PyHouse_Install')
 sys.path.append('./PyHouse_Install/src')
-#  print(sys.path)
+print(sys.path)
 
 #  Import PyHouse_Install stuff
 try:
-    from Install import add_user
+    import add_user
 except ImportError as e_err:
     print('ERROR -1 {}'.format(e_err))
     try:
-        from src.Install import add_user
+        from Install import add_user
     except ImportError as e_err:
         print('ERROR -2 {}'.format(e_err))
+        try:
+            from src.Install import add_user
+        except ImportError as e_err:
+            print('ERROR -3 {}'.format(e_err))
 
 
 SUDOERS = '/etc/sudoers'
