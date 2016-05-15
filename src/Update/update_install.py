@@ -2,21 +2,21 @@
 @name:      PyHouse_Install/src/Update/update_install.py
 @author:    D. Brian Kimmel
 @contact:   D.BrianKimmel@gmail.com
-@copyright: (c) 2015-2015 by D. Brian Kimmel
+@copyright: (c) 2015-2016 by D. Brian Kimmel
 @license:   MIT License
 @note:      Created on Oct 14, 2015
 @Summary:
 
 """
 
-# Import system type stuff
+#  Import system type stuff
 import os
 import pwd
 import shutil
 import stat
 
-# Import PyHouseInstall files and modules.
-# from Install.Utility import Utilities as utilUtil
+#  Import PyHouseInstall files and modules.
+#  from Install.Utility import Utilities as utilUtil
 
 HOME_DIR = '/home/pyhouse/'
 WORKSPACE_DIR = HOME_DIR + 'workspace/'
@@ -105,4 +105,4 @@ if __name__ == "__main__":
     l_api.update()
     print('---Finished update_install.py\n')
 
-# ## END DBK
+#  ## END DBK

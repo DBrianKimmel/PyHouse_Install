@@ -2,7 +2,7 @@
 @name:      PyHouse_Install/src/Install/Utility.py
 @author:    D. Brian Kimmel
 @contact:   D.BrianKimmel@gmail.com
-@copyright: (c) 2015-2015 by D. Brian Kimmel
+@copyright: (c) 2015-2016 by D. Brian Kimmel
 @license:   MIT License
 @note:      Created on Oct 13, 2015
 @Summary:
@@ -49,6 +49,7 @@ class Utilities(object):
             print('    Creating a directory {}'.format(p_dir_name))
             subprocess.call(['sudo', 'mkdir', p_dir_name])
             subprocess.call(['sudo', 'chown', str(l_uid), str(p_dir_name)])
+            subprocess.call(['sudo', 'chgrp', str(l_gid), str(p_dir_name)])
         else:
             print('   *** Directory {} already exists.'.format(p_dir_name))
 

@@ -26,9 +26,10 @@ sys.path.append('/home/pyhouse/workspace/PyHouse_Install/src')
 from Install import Utility
 
 HOME_DIR = '/home/pyhouse/'
-BIN_DIR = HOME_DIR + 'bin/'
+HOME_BIN_DIR = HOME_DIR + 'bin/'
 WORK_DIR = HOME_DIR + 'workspace/'
 INSTALL_DIR = WORK_DIR + 'PyHouse_Install/'
+INSTALL_BIN_DIR = INSTALL_DIR + 'bin/'
 SRC_DIR = INSTALL_DIR + 'src/'
 CONFIG_DIR = '/etc/pyhouse'
 LOG_DIR = '/var/log/pyhouse'
@@ -39,23 +40,23 @@ class User(object):
     """
 
     @staticmethod
-    def create_dir(p_dir):
-        print(' ')
-        l_user = pwd.getpwnam('pyhouse')
-        if not os.path.isdir(p_dir):
-            print('  Creating a directory {}'.format(p_dir))
-            os.makedirs(p_dir)
-            os.chown(p_dir, l_user.pw_uid, l_user.pw_gid)
+    def _copy_bin_files():
+        for l_entry in os.listdir(INSTALL_BIN_DIR):
+            l_file = os.path.join(INSTALL_BIN_DIR, l_entry)
+            l_target = os.path.join(HOME_BIN_DIR, l_entry)
+            shutil.copy(l_file, HOME_BIN_DIR)
+            try:
+                os.chmod(l_target, stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR | stat.S_IRGRP | stat.S_IXGRP | stat.S_IROTH | stat.S_IXOTH)
+                os.chown(l_target, l_user.pw_uid, l_user.pw_gid)
+                print('  Installed file {}'.format(l_target))
+            except Exception as e_err:
+                print('Error in changing {} - {}'.format(l_target, e_err))
+        pass
 
 
 class Sys(object):
     """ This is a director that will run various installation sections.
     """
-
-    def make_bin(self):
-        if not os.path.isdir(l_dir):
-            print("  Creating bin dir for commands.")
-            User.create_dir('bin')
 
     def Install(self):
         """Install from scratch for a newly made jessie image.
@@ -67,9 +68,10 @@ class Sys(object):
         """
 
         print(' Running install.')
-        Utility.Utilities.MakeDir(BIN_DIR, 'pyhouse')
+        Utility.Utilities.MakeDir(HOME_BIN_DIR, 'pyhouse')
         Utility.Utilities.MakeDir(CONFIG_DIR, 'pyhouse')
         Utility.Utilities.MakeDir(LOG_DIR, 'pyhouse')
+        User._copy_bin_files()
 
 
 if __name__ == "__main__":
