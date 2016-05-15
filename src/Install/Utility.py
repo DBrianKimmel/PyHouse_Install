@@ -48,7 +48,7 @@ class Utilities(object):
         if not os.path.isdir(p_dir_name):
             print('    Creating a directory {}'.format(p_dir_name))
             subprocess.call(['sudo', 'mkdir', p_dir_name])
-            subprocess.call(['sudo', 'chown', str(p_user_name), str(p_dir_name), ':', str(l_uid), str(l_gid)])
+            subprocess.call(['sudo', 'chown', str(p_user_name), str(p_dir_name), str(l_uid), ':', str(l_gid)])
         else:
             print('   *** Directory {} already exists.'.format(p_dir_name))
 
