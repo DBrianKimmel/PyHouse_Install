@@ -43,6 +43,7 @@ class User(object):
 
     @staticmethod
     def _copy_bin_files():
+        l_user = pwd.getpwnam('pyhouse')
         for l_entry in os.listdir(INSTALL_BIN_DIR):
             l_file = os.path.join(INSTALL_BIN_DIR, l_entry)
             l_target = os.path.join(HOME_BIN_DIR, l_entry)
