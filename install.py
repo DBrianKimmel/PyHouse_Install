@@ -17,6 +17,7 @@ This is run after the user 'pyhouse' is created and functional.
 #  Import system stuff
 import os
 import pwd
+import shutil
 import sys
 
 sys.path.append('/home/pyhouse/workspace/PyHouse_Install')
