@@ -9,7 +9,10 @@
 
 Create the /etc/pyhouse/.private file that will hold the secret information used by the pyhouse system.
 
-HOSTNAME=hostname
+HOSTNAME: hostname
+MQTT: true
+NODE_RED: false
+
 
 """
 
