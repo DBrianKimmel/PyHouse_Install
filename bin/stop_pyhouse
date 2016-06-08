@@ -3,7 +3,7 @@
 # @name:      PyHouse_Install/bin/stop_pyhouse
 # @author:    D. Brian Kimmel
 # @contact:   D.BrianKimmel@gmail.com
-# @copyright: (c) 2015-2015 by D. Brian Kimmel
+# @copyright: (c) 2015-2016 by D. Brian Kimmel
 # @license:   MIT License
 # @note:      Created on Oct 19, 2015
 # @Summary:   This stops PyHouse
@@ -13,6 +13,6 @@ WORK=/home/pyhouse/workspace/PyHouse
 
 echo "Stopping the PyHouse system"
 PID=$(ps -ef | grep PyHouse | grep -v grep | awk '{ print $2 }')
-kill -INT $PID
+kill -TERM $PID
 
 ### END DBK
