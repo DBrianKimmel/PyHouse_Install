@@ -15,6 +15,7 @@ import os
 import shutil
 
 #  Import PyHouseInstall files and modules.
+from Install.Utility import Utilities
 
 SYSTEMD_DIR = '/etc/systemd/system/'
 TTY1_DIR = '/etc/systemd/system/getty@tty1.service.d/'
@@ -25,7 +26,7 @@ SRC_FILE = HOME_DIR + 'workspace/PyHouse_Install/src/files/autologin.conf'
 
 class AutoStartOnBoot(object):
     """
-    This will set up tye Raspi to auto login and start PyHouse on boot.
+    This will set up the Raspi to auto login and start PyHouse on boot.
 
     mkdir -p /etc/systemd/system/getty@tty1.service.d/
     cp autologin.conf /etc/systemd/system/getty@tty1.service.d/autologin.conf
@@ -45,13 +46,14 @@ class AutoStartOnBoot(object):
 
     def install_autologin(self):
         """
-        systemctl disable getty@tty1
-        systemctl enable autologin@tty1
-        systemctl start autologin@tty1
+        sudo systemctl disable getty@tty1
+        sudo systemctl enable autologin@tty1
+        sudo systemctl start autologin@tty1
         """
         if not os.path.isdir(TTY1_DIR):
             print('Creating a directory {}'.format(TTY1_DIR))
             os.makedirs(TTY1_DIR)
+            # Utilities.MakeDir(TTY1_DIR, 'root')
         #  if not os.path.isfile(TTY1_FILE):
         shutil.copy(SRC_FILE, TTY1_DIR)  #  Overwrite
         print('  Installed file {}'.format(SRC_FILE))

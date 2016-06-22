@@ -8,6 +8,8 @@
 @note:      Created Dec 8, 2015
 @Summary:   Add a 'PyHouse' user.
 
+Adds one user (Usually pyhouse) to the system.
+
 """
 
 #  Import system stuff

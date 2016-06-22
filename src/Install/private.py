@@ -7,7 +7,7 @@
 @note:      Created May 13, 2016
 @Summary:   Create .private
 
-Create the /etc/pyhouse/.private file that will hold the secret information used by the pyhouse system.
+Create the /etc/pyhouse/.private.yaml file that will hold the secret information used by the pyhouse system.
 
 HOSTNAME: hostname
 MQTT: true
