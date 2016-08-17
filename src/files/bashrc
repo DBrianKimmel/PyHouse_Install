@@ -1,6 +1,6 @@
 ### AutoLogin PyHouse ###
 #
-# Start the pyhouse if we autologin this user
+# Start the pyhouse process if we autologin this user
 #
 if [ $(tty) == /dev/tty1 ]; then
         bin/start_pyhouse
