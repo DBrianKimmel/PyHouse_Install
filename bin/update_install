@@ -21,9 +21,12 @@ HOME_DIR='/home/pyhouse/'
 WORK_DIR=${HOME_DIR}workspace/
 INSTALL_DIR=${WORK_DIR}PyHouse_Install/
 
-echo "\n\nThis is User "pyhouse"  /home/pyhouse/bin/update_install ..."
+echo " "
+echo " "
+echo "  This is User "pyhouse"  /home/pyhouse/bin/update_install ..."
 echo "--Running update_install shell script now ..."
 cd ${INSTALL_DIR}
+
 echo "  Update the PyHouse_Install package from the repository on github.com."
 git pull
 git checkout
