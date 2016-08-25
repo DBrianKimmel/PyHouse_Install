@@ -8,6 +8,8 @@
 @note:      Created on Oct 13, 2015
 @Summary:
 
+
+
 """
 
 #  Import system type stuff
@@ -15,7 +17,7 @@ import os
 import shutil
 
 #  Import PyHouseInstall files and modules.
-from Install.Utility import Utilities
+# from Install.Utility import Utilities
 
 SYSTEMD_DIR = '/etc/systemd/system/'
 TTY1_DIR = '/etc/systemd/system/getty@tty1.service.d/'
@@ -50,7 +52,9 @@ class AutoStartOnBoot(object):
         sudo systemctl enable autologin@tty1
         sudo systemctl start autologin@tty1
         """
-        if not os.path.isdir(TTY1_DIR):
+        if os.path.isdir(TTY1_DIR):
+            print('Dir {} already exists (used for autologin)'.format(TTY1_DIR))
+        else:
             print('Creating a directory {}'.format(TTY1_DIR))
             os.makedirs(TTY1_DIR)
             # Utilities.MakeDir(TTY1_DIR, 'root')

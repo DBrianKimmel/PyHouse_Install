@@ -149,7 +149,14 @@ class Repositories(object):
 
     def add_all(self):
         print('  Adding all PyHouse repositories from github')
-        self._create_workspace()
+        if os.path.isdir(WORKSPACE_DIR):
+            # Update
+            os.system('cd {}'.format(WORKSPACE_DIR + 'PyHouse'))
+            subprocess.call(['git', 'pull'])
+            os.system('cd {}'.format(WORKSPACE_DIR + 'PyHouse_Install'))
+            subprocess.call(['git', 'pull'])
+        else:
+            self._create_workspace()
 
 
 class Hostname(object):
@@ -214,8 +221,8 @@ class Sys(object):
 
     def AddSoftware(self):
         print('  Add Software.')
-        subprocess.call('sudo apt -y install gcc', shell = True)
-        subprocess.call('sudo apt -y install python-pip', shell = True)
+        subprocess.call('sudo apt -y install gcc', shell=True)
+        subprocess.call('sudo apt -y install python-pip', shell=True)
 
     def Install(self):
         """Install from scratch for a newly made jessie image.
