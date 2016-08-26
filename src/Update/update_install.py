@@ -10,7 +10,7 @@
 This is run as root by the shell script update_install which is run as bin/update_install
 """
 
-__updated__ = '2016-08-18'
+__updated__ = '2016-08-25'
 
 
 #  Import system type stuff
@@ -98,6 +98,11 @@ class Api(object):
         shutil.copy(l_src, l_dir)
         os.chown(l_dest, l_user.pw_uid, l_user.pw_gid)
         print('  Copied file "{}" to "{}"'.format(l_src, l_dest))
+
+    def copy_autologin(self):
+        """
+        """
+
 
     def update(self):
         self.make_HOME_BIN_DIR()
