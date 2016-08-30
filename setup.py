@@ -9,30 +9,39 @@
 @license:   MIT License
 @summary:   This installs on a new jessie system
 
-It must NOT be run as root:
+This must NOT be run as root:
 
 Login as any uer with sudo powers.
+Clone the PyHouse Suite instalation software
 
     git clone https://github.com/DBrianKimmel/PyHouse_Install.git
+
+Then run the software to install the the base.
+It will create the 'pyhouse user, install the necessary debian packages, ...
+
     python PyHouse_Install/setup.py install
 
+This will create the user 'pyhouse' and clone the two packages 'PyHouse' and 'PyHouse_Install.
+Then you may claan up by removing the 'PyHouse_Install package.
 Then change to the pyhouse user:
 
     sudo su pyhouse -l
 
 and then run the pyhouse installation as that user:
 
-    python workspace/PyHouse_Install/src/install.py
+    python workspace/PyHouse_Install/src/Install/install.py
 
 
 
 
 
-Examine the code closely
+Examine the code closely for your own ease of mind.
 
 Jessie uses systemd and not the old SystemV init system so this will not work on anything earlier than jessie (Debian 8)
 
 """
+
+__updated__ = '2016-08-26'
 
 #  Import system type stuff
 import crypt
@@ -68,7 +77,8 @@ HOME_DIR = '/home/pyhouse/'
 WORKSPACE_DIR = HOME_DIR + 'workspace/'
 
 class cd:
-    """Context manager for changing the current working directory"""
+    """Context manager for changing the current working directory
+    """
     def __init__(self, p_new_path):
         self.m_new_path = os.path.expanduser(p_new_path)
 
@@ -247,7 +257,9 @@ class Sys(object):
 
 
 if __name__ == "__main__":
-    print('Setup install of PyHouse_Install.  This will set up your entire PyHouse system on this computer.\n')
+    print('Setup install of PyHouse_Install.\nThis will set up your entire PyHouse system on this computer.\n')
+    Sys().CheckRoot()
     Sys().Install()
+    print('Finish Installing the PyHouse Suite.')
 
 #  ## END DBK

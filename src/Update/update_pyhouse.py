@@ -9,6 +9,8 @@
 
 """
 
+__updated__ = '2016-08-26'
+
 #  Import system type stuff
 
 #  Import PyHouseInstall files and modules.

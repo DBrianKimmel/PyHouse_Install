@@ -10,7 +10,7 @@
 This is run as root by the shell script update_install which is run as bin/update_install
 """
 
-__updated__ = '2016-08-25'
+__updated__ = '2016-08-28'
 
 
 #  Import system type stuff
@@ -22,9 +22,12 @@ import stat
 #  Import PyHouseInstall files and modules.
 #  from Install.Utility import Utilities as utilUtil
 
+
 HOME_DIR = '/home/pyhouse/'
 WORKSPACE_DIR = HOME_DIR + 'workspace/'
 HOME_BIN_DIR = HOME_DIR + 'bin/'
+
+
 INSTALL_DIR = WORKSPACE_DIR + 'PyHouse_Install/'
 INSTALL_BIN_DIR = INSTALL_DIR + 'bin/'
 
@@ -51,6 +54,10 @@ class Utilities(object):
             print('Creating a directory {}'.format(p_dir_name))
             os.makedirs(p_dir_name)
             os.chown(p_dir_name, l_uid, l_gid)
+
+    def Install(self):
+        """ Install or update the repositories,
+        """
 
 
 class Api(object):

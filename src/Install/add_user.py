@@ -9,8 +9,11 @@
 @Summary:   Add a 'PyHouse' user.
 
 Adds one user (Usually pyhouse) to the system.
+Give that user 'sudo' powers.
 
 """
+
+__updated__ = '2016-08-26'
 
 #  Import system stuff
 import os
@@ -30,6 +33,8 @@ class AddUser(object):
         subprocess.call(['sudo ', 'adduser ', '--disabled-login ', p_username])
 
     def _create_ssh(self):
+        """ Create a .ssh directory
+        """
         pass
 
     def add_one(self, p_username):
