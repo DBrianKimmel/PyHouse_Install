@@ -3,7 +3,7 @@
 @name:      src/install.py
 @author:    D. Brian Kimmel
 @contact:   D.BrianKimmel@gmail.com
-@copyright: (c) 2016-2016 by D. Brian Kimmel
+@copyright: (c) 2016-2017 by D. Brian Kimmel
 @license:   MIT License
 @note:      Created May 11, 2016
 @Summary:   Install.
@@ -21,6 +21,7 @@ import shutil
 import stat
 import sys
 
+sys.path.append('/home/pyhouse/PyHouse_Install/src')
 sys.path.append('/home/pyhouse/workspace/PyHouse_Install')
 sys.path.append('/home/pyhouse/workspace/PyHouse_Install/src')
 
