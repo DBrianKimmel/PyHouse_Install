@@ -98,7 +98,7 @@ class Repositories(object):
 if __name__ == "__main__":
     print(' Running  Install/install.py ...')
     Repositories().Install()
-    AutoStart.Install()
+    AutoStart().Install()
     print(' Finished Install/install.py\n')
 
 # ## END DBK
