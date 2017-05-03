@@ -7,7 +7,7 @@
 @note:      Created Jan 22, 2016
 @Summary:   Set up the computers hostname
 
-Hostname must be set up properly so that X509 certificates woll work as they should.
+Hostname must be set up properly so that X509 certificates will work as they should.
 
 """
 

@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 #  -*- coding: utf-8 -*-
 """
 @name:      PyHouse_Install/setup.py
@@ -41,7 +41,7 @@ Jessie uses systemd and not the old SystemV init system so this will not work on
 
 """
 
-__updated__ = '2016-08-26'
+__updated__ = '2017-05-03'
 
 #  Import system type stuff
 import crypt
@@ -52,6 +52,7 @@ import pwd
 import subprocess
 import sys
 
+sys.path.append('/home/pyhouse/PyHouse_Install')
 sys.path.append('/home/pyhouse/workspace/PyHouse_Install')
 sys.path.append('/home/pyhouse/workspace/PyHouse_Install/src')
 print(sys.path)

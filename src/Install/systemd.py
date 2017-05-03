@@ -8,6 +8,9 @@
 @note:      Created on Oct 13, 2015
 @Summary:
 
+This installs the systemd files for:
+    Autologin on reboot / system start
+
 
 
 """
