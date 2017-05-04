@@ -53,9 +53,10 @@ import subprocess
 import sys
 
 sys.path.append('/home/pyhouse/PyHouse_Install')
+sys.path.append('/home/pyhouse/PyHouse_Install/src')
 sys.path.append('/home/pyhouse/workspace/PyHouse_Install')
 sys.path.append('/home/pyhouse/workspace/PyHouse_Install/src')
-print(sys.path)
+# print(sys.path)
 
 #  Import PyHouse_Install stuff
 try:
@@ -178,22 +179,6 @@ class Hostname(object):
         pass
 
 
-class User(object):
-    """ Install the pyhouse user
-    """
-
-    @staticmethod
-    def XXX_add_user(p_user):
-        """
-        """
-        l_passwd = 'ChangeMe'
-        l_encrypted = crypt.crypt(l_passwd, '3a')
-        os.system('useradd --password {} --create-home {}'.format(l_encrypted, p_user))
-        os.system('passwd -e {}'.format(p_user))
-        print('  Added user "{}" with password {}'.format(p_user, l_passwd))
-        print('  You MUST now change that password.\n')
-
-
 class Computer(object):
     """
     Set up the computer itself
@@ -233,7 +218,7 @@ class Sys(object):
     def AddSoftware(self):
         print('  Add Software.')
         subprocess.call('sudo apt -y install gcc', shell=True)
-        subprocess.call('sudo apt -y install python-pip', shell=True)
+        subprocess.call('sudo apt -y install python3-pip', shell=True)
 
     def Install(self):
         """Install from scratch for a newly made jessie image.

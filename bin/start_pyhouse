@@ -14,7 +14,7 @@ WORK=/home/pyhouse/workspace/PyHouse/
 echo "Starting the PyHouse system"
 cd ~
 > nohup.out
-nohup python ${WORK}src/PyHouse.py  1>/dev/null 2>&1 </dev/null &
+nohup python3 ${WORK}src/PyHouse.py  1>/dev/null 2>&1 </dev/null &
 cd
 
 ### END DBK
