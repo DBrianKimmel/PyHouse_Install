@@ -1,4 +1,6 @@
 ### AutoLogin PyHouse ###
+###
+### This is appended (once) to ~/.bashrc
 #
 # Start the pyhouse process if we autologin this user
 #
