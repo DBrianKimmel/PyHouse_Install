@@ -41,7 +41,7 @@ Jessie uses systemd and not the old SystemV init system so this will not work on
 
 """
 
-__updated__ = '2017-05-03'
+__updated__ = '2017-08-18'
 
 #  Import system type stuff
 import crypt
@@ -60,17 +60,17 @@ sys.path.append('/home/pyhouse/workspace/PyHouse_Install/src')
 
 #  Import PyHouse_Install stuff
 try:
-    import add_user
+    from src.Install import add_user  # This one works best for me so it is first.
 except ImportError as e_err:
-    print('ERROR -1 {}'.format(e_err))
+    print('ERROR-1 - Not found "src.Install.add_user" {}'.format(e_err))
     try:
         from Install import add_user
     except ImportError as e_err:
-        print('ERROR -2 {}'.format(e_err))
+        print('ERROR-2 - Not found "Install.add_user" {}'.format(e_err))
         try:
-            from src.Install import add_user
+            import add_user
         except ImportError as e_err:
-            print('ERROR -3 {}'.format(e_err))
+            print('ERROR-3 - Not found "add_user"{}'.format(e_err))
 
 
 SUDOERS = '/etc/sudoers'
@@ -92,13 +92,18 @@ class cd:
         os.chdir(self.m_saved_path)
 
 
-class Jessie(object):
+class Wheezy(object):
+    """ This is for the 'Wheezy' release of Raspbian 2013-08-01
     """
+
+
+class Jessie(object):
+    """ This is for the 'Jessie' release of Raspbian lite 2015-08-01
     """
 
     def _update(self):
         print('  Update Raspbian')
-        subprocess.call(['sudo', 'apt-get', 'q', 'update'])
+        subprocess.call(['sudo', 'apt-get', '-q', 'update'])
 
     def _upgrade(self):
         print('  Upgrade Raspbian')
@@ -113,11 +118,51 @@ class Jessie(object):
         subprocess.call(['sudo', 'apt-get', '-yq', 'autoremove'])
 
     def upgrade(self):
-        print(' Jessis is being updated/upgraded next.')
+        print(' Jessie is being updated/upgraded next.')
         self._update()
         self._upgrade()
         self._dist_upgrade()
         self._autoremove()
+
+
+class Stretch(object):
+    """ This is for the 'Stretch' release of Raspbian lite 2017-08-15
+    """
+
+    def _update(self):
+        print('  Update Raspbian-lite "Stretch"')
+        subprocess.call(['sudo', 'apt', 'q', 'update'])
+
+    def _upgrade(self):
+        print('  Upgrade Raspbian-lite "Stretch"')
+        subprocess.call(['sudo', 'apt', '-yq', 'upgrade'])
+
+    def _autoremove(self):
+        print('  AutoRemove Raspbian')
+        subprocess.call(['sudo', 'apt', '-yq', 'autoremove'])
+
+    def upgrade(self):
+        print(' Raspbian-lite Stretch is being updated/upgraded next.')
+        self._update()
+        self._upgrade()
+        self._autoremove()
+
+
+class Raspbian(object):
+    """
+    """
+
+    def upgrade(self):
+        # Get the version of the OS installed somehow...
+        version = 9
+        if version == 7:
+            Wheezy().update()
+        elif version == 8:
+            Jessie().upgrade()
+        elif version == 9:
+            Stretch().upgrade()
+        else:
+            print('ERROR Unknown version of the OS ---')
 
 
 class Firewalls(object):
@@ -161,8 +206,8 @@ class Repositories(object):
 
     def add_all(self):
         print('  Adding all PyHouse repositories from github')
-        if os.path.isdir(WORKSPACE_DIR):
-            # Update
+        if os.path.isdir('{}'.format(WORKSPACE_DIR + 'PyHouse')):
+            print('   Updating Already installed repositories.')
             os.system('cd {}'.format(WORKSPACE_DIR + 'PyHouse'))
             subprocess.call(['git', 'pull'])
             os.system('cd {}'.format(WORKSPACE_DIR + 'PyHouse_Install'))
@@ -199,7 +244,6 @@ class Sys(object):
         l_user = getpass.getuser()
         if l_user == 'root':
             exit('You must not be root (no sudo)! - Aborting!')
-        pass
 
     @staticmethod
     def SetupComputer():
@@ -211,7 +255,7 @@ class Sys(object):
 
     @staticmethod
     def SetupTools():
-        print('  Current Directory: {}'.format(os.getcwd()))
+        print('  SetupTools - Current Directory: {}'.format(os.getcwd()))
         subprocess.call(['wget', 'https://bootstrap.pypa.io/ez_setup.py'])
         subprocess.call(['echo ', 'sudo python'])
 
@@ -229,10 +273,9 @@ class Sys(object):
             /usr/local/bin/update
         """
 
-        print(" Running setup install.")
+        print(" Running setup.Sys().Install().")
         self.CheckRoot()
-        #  test then install a 'pyhouse' user
-        #  Jessie().upgrade()
+        Raspbian().upgrade()
         add_user.User().add_one_user('pyhouse')
         #  Sys.SetupTools()
         self.AddSoftware()
@@ -243,9 +286,8 @@ class Sys(object):
 
 
 if __name__ == "__main__":
-    print('Setup install of PyHouse_Install.\nThis will set up your entire PyHouse system on this computer.\n')
-    Sys().CheckRoot()
+    print('Setup install of PyHouse_Install.\nThis will set up your entire PyHouse system on this computer.\nDo not use sudo!\n')
     Sys().Install()
-    print('Finish Installing the PyHouse Suite.')
+    print('\nFinished Installing the PyHouse Suites.\n')
 
 #  ## END DBK
