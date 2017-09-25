@@ -13,7 +13,7 @@ Give that user 'sudo' powers.
 
 """
 
-__updated__ = '2016-08-26'
+__updated__ = '2017-08-18'
 
 #  Import system stuff
 import os
@@ -50,15 +50,16 @@ class User(object):
 
     @staticmethod
     def _create_workspace(p_user):
-        print('  Creating Workspace.')
-        l_dir = '/home/' + p_user + '/workspace'
-        #  l_user = pwd.getpwnam('pyhouse')
-        if not os.path.isdir(l_dir):
-            print('   Creating a directory {}'.format(l_dir))
-            subprocess.call(['sudo', 'mkdir', l_dir])
-            #  os.makedirs(l_dir)
-            subprocess.call(['sudo', 'chown', p_user + ':' + p_user, l_dir])
-            #  os.chown(l_dir, l_user.pw_uid, l_user.pw_gid)
+
+        def _add_dir(p_user, p_dir):
+            l_dir = '/home/' + p_user + '/' + p_dir
+            if not os.path.isdir(l_dir):
+                print('   Creating a directory {}'.format(l_dir))
+                subprocess.call(['sudo', 'mkdir', l_dir])
+                subprocess.call(['sudo', 'chown', p_user + ':' + p_user, l_dir])
+
+        _add_dir(p_user, 'workspace')
+        _add_dir(p_user, 'bin')
 
     @staticmethod
     def _update_sudoers(p_user):
